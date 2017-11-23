@@ -21,7 +21,7 @@ namespace AutomatedTimetableGeneration.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("Data Source=DARSH\\SQLEXPRESS;Initial Catalog=CollegeDatabase;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework", throwIfV1Schema: false)
         {
         }
 
