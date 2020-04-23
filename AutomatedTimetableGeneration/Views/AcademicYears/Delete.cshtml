@@ -1,0 +1,83 @@
+﻿@model AutomatedTimetableGeneration.Models.AcademicYear
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<span class="label label-danger">Note!</span>
+
+<h4>Are you sure you want to delete this Academic Year ?</h4>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Students Count")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentsCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Group Count")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GroupCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Section Count")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SectionCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Academic Year")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AcademicYear1)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Day Work Hours")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DayWorkHours)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Allowed Gap Hours")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AllowedGapHours)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Year")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year.ID)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <span class="btn btn-circle-left grey ">
+                @Html.ActionLink("Back to List", "Index")
+            </span>|
+
+
+            <input type="submit" value="Delete" class="btn btn-circle green" />
+        </div>
+    }
+</div>

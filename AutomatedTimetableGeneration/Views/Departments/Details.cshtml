@@ -1,0 +1,64 @@
+﻿@model AutomatedTimetableGeneration.Models.Department
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutMetronic.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+  
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Course")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Capacity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Capacity)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Work Hours Per Day")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkHoursPerDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Allowed Gap Hours")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AllowedGapHours)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Academic Year")
+        </dt>
+
+
+        <dd>
+            @Html.DisplayFor(model => model.AcademicYear.ID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <span class="btn btn-circle grey">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID })
+    </span>
+    <br /><br />
+    <span class="btn btn-circle-left grey ">
+        @Html.ActionLink("Back to List", "Index")
+    </span>
+</p>

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<AutomatedTimetableGeneration.Models.Ta_Constraints>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMetronic.cshtml";
+}
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr class="success">
+        <th>
+            @Html.DisplayName("Teacher Assistant E-mail")
+        </th>
+        <th>
+            @Html.DisplayName("Start Date")
+        </th>
+        <th>
+            @Html.DisplayName("End Date")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        
+        <th>
+            @Html.DisplayName("Year")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Start_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.End_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+      
+        <td>
+            @Html.DisplayFor(modelItem => item.Year.ID)
+        </td>
+        <td>
+
+            <span class="btn default btn-xs grey"> @Html.ActionLink("Details", "Details", new { id = item.ID }) </span>|
+            <span class="btn default btn-xs yellow-lemon"> @Html.ActionLink("Delete", "Delete", new { id = item.ID })</span>
+        </td>
+    </tr>
+}
+
+</table>

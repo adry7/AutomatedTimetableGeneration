@@ -1,0 +1,57 @@
+﻿@model AutomatedTimetableGeneration.Models.Room
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Capacity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Capacity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomType.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoomType.Name)
+        </dd>
+
+       
+
+    </dl>
+</div>
+<p>
+    <span class="btn btn-circle grey">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID })
+    </span>
+    <br /><br />
+    <span class="btn btn-circle-left grey ">
+        @Html.ActionLink("Back to List", "Index")
+    </span>
+
+</p>

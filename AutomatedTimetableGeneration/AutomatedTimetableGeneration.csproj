@@ -191,65 +191,136 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Classes\Assignement.cs" />
+    <Compile Include="Classes\Availslotsday.cs" />
+    <Compile Include="Classes\AvailTimeforgroup.cs" />
+    <Compile Include="Models\AcademicYear.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetRole.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaim.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CollegeDb.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CollegeDb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CollegeDb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CollegeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CollegeDb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CollegeDb.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\cours.cs" />
+    <Compile Include="Classes\Day.cs" />
+    <Compile Include="Classes\Doctorsforcourses.cs" />
+    <Compile Include="Classes\GroupModel.cs" />
+    <Compile Include="Classes\ManageViewModels.cs" />
+    <Compile Include="Classes\RoomDay.cs" />
+    <Compile Include="Classes\RoomsTimeTables.cs" />
+    <Compile Include="Classes\SectionAssignement.cs" />
+    <Compile Include="Classes\SectionDay.cs" />
+    <Compile Include="Classes\SectionsVariables.cs" />
+    <Compile Include="Classes\SectionTimeTable.cs" />
+    <Compile Include="Classes\Slot.cs" />
+    <Compile Include="Models\Course.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Department.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Doctor_Available_Time.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Group.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LectureTime.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LinkCourseDept.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LinkDoctorCourse.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LinkTaSectionTime.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Room.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RoomType.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Section.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SectionTime.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ta.cs" />
+    <Compile Include="Classes\TaDay.cs" />
+    <Compile Include="Models\TaForCourse.cs" />
+    <Compile Include="Classes\TaTimetable.cs" />
+    <Compile Include="Classes\Variables.cs" />
+    <Compile Include="Controllers\AcademicYearsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ConstraintOfTAController.cs" />
+    <Compile Include="Controllers\LinkTACourseController.cs" />
+    <Compile Include="Controllers\TAController.cs" />
+    <Compile Include="Controllers\taWishes1Controller.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\CoursesController.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
+    <Compile Include="Controllers\DoctorController.cs" />
+    <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LinkCourseDeptsController.cs" />
+    <Compile Include="Controllers\LinkDoctorCoursesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\outputTableController.cs" />
+    <Compile Include="Controllers\RoomsController.cs" />
+    <Compile Include="Controllers\Ta_ConstraintsController.cs" />
+    <Compile Include="Controllers\Ta_WishesController.cs" />
+    <Compile Include="Controllers\VictimHistoriesController.cs" />
+    <Compile Include="functions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>CollegeDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>CollegeDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUserClaim.cs">
-      <DependentUpon>CollegeDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUserLogin.cs">
-      <DependentUpon>CollegeDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CollegeDB.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CollegeDB.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CollegeDB.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CollegeDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CollegeDB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CollegeDB.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Course.cs">
-      <DependentUpon>CollegeDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\C__MigrationHistory.cs">
-      <DependentUpon>CollegeDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Department.cs">
-      <DependentUpon>CollegeDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Instructor.cs">
-      <DependentUpon>CollegeDB.tt</DependentUpon>
+    <Compile Include="Models\Ta_Constraints.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Person.cs">
-      <DependentUpon>CollegeDB.tt</DependentUpon>
+    <Compile Include="Models\Ta_Wishes.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Room.cs">
-      <DependentUpon>CollegeDB.tt</DependentUpon>
+    <Compile Include="Models\VictimHistory.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Section.cs">
-      <DependentUpon>CollegeDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>CollegeDB.tt</DependentUpon>
+    <Compile Include="Models\Year.cs">
+      <DependentUpon>CollegeDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -691,7 +762,6 @@
     <Content Include="assets\admin\pages\scripts\components-nouisliders.js" />
     <Content Include="assets\admin\pages\scripts\components-pickers.js" />
     <Content Include="assets\admin\pages\scripts\contact-us.js" />
-    <Content Include="assets\admin\pages\scripts\custom.js" />
     <Content Include="assets\admin\pages\scripts\ecommerce-index.js" />
     <Content Include="assets\admin\pages\scripts\ecommerce-orders-view.js" />
     <Content Include="assets\admin\pages\scripts\ecommerce-orders.js" />
@@ -4500,15 +4570,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\CollegeDB.Context.tt">
+    <Content Include="Models\CollegeDb.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CollegeDB.edmx</DependentUpon>
-      <LastGenOutput>CollegeDB.Context.cs</LastGenOutput>
+      <DependentUpon>CollegeDb.edmx</DependentUpon>
+      <LastGenOutput>CollegeDb.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\CollegeDB.tt">
+    <Content Include="Models\CollegeDb.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CollegeDB.edmx</DependentUpon>
-      <LastGenOutput>CollegeDB.cs</LastGenOutput>
+      <DependentUpon>CollegeDb.edmx</DependentUpon>
+      <LastGenOutput>CollegeDb.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -4753,12 +4823,12 @@
     <Content Include="assets\global\plugins\typeahead\README.md" />
     <Content Include="assets\global\plugins\uniform\css\uniform.default.scss" />
     <Content Include="assets\global\plugins\uniform\README.md" />
-    <EntityDeploy Include="Models\CollegeDB.edmx">
+    <EntityDeploy Include="Models\CollegeDb.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CollegeDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>CollegeDb.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\CollegeDB.edmx.diagram">
-      <DependentUpon>CollegeDB.edmx</DependentUpon>
+    <Content Include="Models\CollegeDb.edmx.diagram">
+      <DependentUpon>CollegeDb.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
@@ -4797,7 +4867,6 @@
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
@@ -4811,7 +4880,97 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="tsconfig.json" />
+    <Content Include="Views\Account\RegisterforTA.cshtml" />
+    <Content Include="Views\AcademicYears\Create.cshtml" />
+    <Content Include="Views\AcademicYears\Delete.cshtml" />
+    <Content Include="Views\AcademicYears\Details.cshtml" />
+    <Content Include="Views\AcademicYears\Edit.cshtml" />
+    <Content Include="Views\AcademicYears\Index.cshtml" />
+    <Content Include="Views\outputTable\Index.cshtml" />
+    <Content Include="Views\Rooms\Create.cshtml" />
+    <Content Include="Views\Rooms\Delete.cshtml" />
+    <Content Include="Views\Rooms\Details.cshtml" />
+    <Content Include="Views\Rooms\Edit.cshtml" />
+    <Content Include="Views\Rooms\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutMetronic.cshtml" />
+    <Content Include="Views\Departments\Create.cshtml" />
+    <Content Include="Views\Departments\Delete.cshtml" />
+    <Content Include="Views\Departments\Details.cshtml" />
+    <Content Include="Views\Departments\Edit.cshtml" />
+    <Content Include="Views\Departments\Index.cshtml" />
+    <Content Include="Views\Home\Create.cshtml" />
+    <Content Include="Views\Home\Delete.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
+    <Content Include="Views\Home\Profile1.cshtml" />
+    <Content Include="Views\Account\RegisterforDOC.cshtml" />
+    <Content Include="Views\Courses\Create.cshtml" />
+    <Content Include="Views\Courses\Delete.cshtml" />
+    <Content Include="Views\Courses\Details.cshtml" />
+    <Content Include="Views\Courses\Edit.cshtml" />
+    <Content Include="Views\Courses\Index.cshtml" />
+    <Content Include="Views\Doctor\Create.cshtml" />
+    <Content Include="Views\Doctor\Delete.cshtml" />
+    <Content Include="Views\Doctor\Details.cshtml" />
+    <Content Include="Views\Doctor\Edit.cshtml" />
+    <Content Include="Views\Doctor\Index.cshtml" />
+    <Content Include="Views\LinkDoctorCourses\Create.cshtml" />
+    <Content Include="Views\LinkDoctorCourses\Delete.cshtml" />
+    <Content Include="Views\LinkDoctorCourses\Details.cshtml" />
+    <Content Include="Views\LinkDoctorCourses\Edit.cshtml" />
+    <Content Include="Views\LinkDoctorCourses\Index.cshtml" />
+    <Content Include="Views\LinkCourseDepts\Create.cshtml" />
+    <Content Include="Views\LinkCourseDepts\Delete.cshtml" />
+    <Content Include="Views\LinkCourseDepts\Details.cshtml" />
+    <Content Include="Views\LinkCourseDepts\Edit.cshtml" />
+    <Content Include="Views\LinkCourseDepts\Index.cshtml" />
+    <Content Include="Views\Ta_Constraints\Details.cshtml" />
+    <Content Include="Views\Ta_Constraints\Index.cshtml" />
+    <Content Include="Views\VictimHistories\Create.cshtml" />
+    <Content Include="Views\VictimHistories\Delete.cshtml" />
+    <Content Include="Views\VictimHistories\Details.cshtml" />
+    <Content Include="Views\VictimHistories\Edit.cshtml" />
+    <Content Include="Views\VictimHistories\Index.cshtml" />
+    <Content Include="Views\Groups\Create.cshtml" />
+    <Content Include="Views\Groups\Delete.cshtml" />
+    <Content Include="Views\Groups\Details.cshtml" />
+    <Content Include="Views\Groups\Edit.cshtml" />
+    <Content Include="Views\Groups\Index.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\IndexTA.cshtml" />
+    <Content Include="Views\Users\IndexDoc.cshtml" />
+    <Content Include="Views\ConstraintOfTA\Create.cshtml" />
+    <Content Include="Views\ConstraintOfTA\Delete.cshtml" />
+    <Content Include="Views\ConstraintOfTA\Details.cshtml" />
+    <Content Include="Views\ConstraintOfTA\Edit.cshtml" />
+    <Content Include="Views\ConstraintOfTA\Index.cshtml" />
+    <Content Include="Views\TA\Create.cshtml" />
+    <Content Include="Views\TA\Delete.cshtml" />
+    <Content Include="Views\TA\Edit.cshtml" />
+    <Content Include="Views\TA\Index.cshtml" />
+    <Content Include="Views\Users\delete.cshtml" />
+    <Content Include="Views\Doctor\Show.cshtml" />
+    <Content Include="Views\outputTable\LecYear1.cshtml" />
+    <Content Include="Views\outputTable\LecYear4.cshtml" />
+    <Content Include="Views\LinkTACourse\Create.cshtml" />
+    <Content Include="Views\LinkTACourse\Delete.cshtml" />
+    <Content Include="Views\LinkTACourse\Details.cshtml" />
+    <Content Include="Views\LinkTACourse\Edit.cshtml" />
+    <Content Include="Views\LinkTACourse\Index.cshtml" />
+    <Content Include="Views\taWishes1\Index.cshtml" />
+    <Content Include="Views\outputTable\LecYear2.cshtml" />
+    <Content Include="Views\outputTable\LecYear3.cshtml" />
+    <Content Include="Views\Home\charts.cshtml" />
+    <Content Include="Views\outputTable\SecYear1.cshtml" />
+    <Content Include="Views\Doctor_Available_Time\Create.cshtml" />
+    <Content Include="Views\Doctor_Available_Time\Delete.cshtml" />
+    <Content Include="Views\Doctor_Available_Time\Details.cshtml" />
+    <Content Include="Views\Doctor_Available_Time\Edit.cshtml" />
+    <Content Include="Views\Doctor_Available_Time\Index.cshtml" />
+    <Content Include="Views\Ta_Wishes\Create.cshtml" />
+    <Content Include="Views\Ta_Wishes\Delete.cshtml" />
+    <Content Include="Views\Ta_Wishes\Details.cshtml" />
+    <Content Include="Views\Ta_Wishes\Edit.cshtml" />
+    <Content Include="Views\Ta_Wishes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

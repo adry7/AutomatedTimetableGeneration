@@ -1,0 +1,66 @@
+﻿@model AutomatedTimetableGeneration.Models.AspNetUser
+
+@{
+    ViewBag.Title = "Profile1";
+    Layout = "~/Views/Shared/_LayoutMetronic.cshtml";
+}
+
+<h2>Profile</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Experience)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Experience)
+        </dd>
+        @if (User.IsInRole("Doctor"))
+        {
+        <dt>
+            @Html.DisplayNameFor(model => model.isExternal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isExternal)
+        </dd>
+        }
+        <dt>
+            Department name 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+</p>

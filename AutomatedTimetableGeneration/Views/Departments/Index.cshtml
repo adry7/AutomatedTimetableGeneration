@@ -1,0 +1,58 @@
+﻿@model IEnumerable<AutomatedTimetableGeneration.Models.Department>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMetronic.cshtml";
+}
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr class="success">
+        <th>
+            @Html.DisplayName("Course")
+        </th>
+        <th>
+            @Html.DisplayName("Capacity")
+        </th>
+        <th>
+            @Html.DisplayName("Work Hours Per Day")
+        </th>
+        <th>
+            @Html.DisplayName("Allowed Gap Hours")
+        </th>
+        <th>
+            @Html.DisplayName("Academic Year")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Capacity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkHoursPerDay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AllowedGapHours)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AcademicYear.ID)
+        </td>
+        <td>
+            <span class="btn default btn-xs grey"> @Html.ActionLink("Edit", "Edit", new { id = item.ID }) </span>|
+            <span class="btn default btn-xs grey"> @Html.ActionLink("Details", "Details", new { id = item.ID }) </span>|
+            <span class="btn default btn-xs yellow-lemon"> @Html.ActionLink("Delete", "Delete", new { id = item.ID })</span>
+        </td>
+    </tr>
+}
+
+</table>

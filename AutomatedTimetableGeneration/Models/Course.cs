@@ -17,26 +17,35 @@ namespace AutomatedTimetableGeneration.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Course()
         {
-            this.Sections = new HashSet<Section>();
-            this.Instructors = new HashSet<Instructor>();
-            this.Rooms = new HashSet<Room>();
+            this.Doctor_Available_Time = new HashSet<Doctor_Available_Time>();
+            this.LinkCourseDepts = new HashSet<LinkCourseDept>();
+            this.LinkDoctorCourses = new HashSet<LinkDoctorCourse>();
+            this.SectionTimes = new HashSet<SectionTime>();
+            this.Ta_Wishes = new HashSet<Ta_Wishes>();
         }
     
-        public int id { get; set; }
-        public string name { get; set; }
-        public System.TimeSpan hours { get; set; }
-        public string type { get; set; }
-        public byte academic_year { get; set; }
-        public int department_id { get; set; }
-        public int students_count { get; set; }
-        public System.TimeSpan start_time { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public int Hours { get; set; }
+        public bool HaveLab { get; set; }
+        public bool HaveSection { get; set; }
+        public Nullable<int> LabHours { get; set; }
+        public Nullable<int> SectionHours { get; set; }
+        public Nullable<int> RoomType_id { get; set; }
+        public int AcademicYear_id { get; set; }
+        public Nullable<int> StaffCount { get; set; }
     
-        public virtual Department Department { get; set; }
+        public virtual AcademicYear AcademicYear { get; set; }
+        public virtual RoomType RoomType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Section> Sections { get; set; }
+        public virtual ICollection<Doctor_Available_Time> Doctor_Available_Time { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Instructor> Instructors { get; set; }
+        public virtual ICollection<LinkCourseDept> LinkCourseDepts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Room> Rooms { get; set; }
+        public virtual ICollection<LinkDoctorCourse> LinkDoctorCourses { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SectionTime> SectionTimes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ta_Wishes> Ta_Wishes { get; set; }
     }
 }

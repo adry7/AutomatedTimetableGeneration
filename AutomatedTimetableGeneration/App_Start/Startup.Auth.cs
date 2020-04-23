@@ -54,9 +54,9 @@ namespace AutomatedTimetableGeneration
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "191891934871626",
+               appSecret: "8c1d76d147c114cdebc4af836322cf98");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

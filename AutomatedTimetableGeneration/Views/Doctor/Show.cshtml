@@ -1,0 +1,47 @@
+﻿@model IEnumerable<AutomatedTimetableGeneration.Models.Doctor_Available_Time>
+
+@{
+    ViewBag.Title = "show";
+    Layout = "~/Views/Shared/_LayoutMetronic.cshtml";
+}
+
+<h2>show</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr class="success">
+        <th>
+            @Html.DisplayNameFor(model => model.DayOfWeek)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartHour)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Course.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DayOfWeek)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartHour)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Course.Name)
+        </td>
+        <td>
+            
+            <span class="btn default btn-xs yellow-lemon">
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </span>
+        </td>
+    </tr>
+}
+
+</table>

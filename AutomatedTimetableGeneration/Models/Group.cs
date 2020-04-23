@@ -12,21 +12,26 @@ namespace AutomatedTimetableGeneration.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Person
+    public partial class Group
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Person()
+        public Group()
         {
-            this.Instructors = new HashSet<Instructor>();
+            this.LectureTimes = new HashSet<LectureTime>();
+            this.Sections = new HashSet<Section>();
         }
     
-        public int id { get; set; }
-        public string name { get; set; }
-        public string email { get; set; }
-        public string password { get; set; }
-        public Nullable<long> phone { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public int Count { get; set; }
+        public int AcadmicYear_id { get; set; }
+        public Nullable<int> Department_id { get; set; }
     
+        public virtual AcademicYear AcademicYear { get; set; }
+        public virtual Department Department { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Instructor> Instructors { get; set; }
+        public virtual ICollection<LectureTime> LectureTimes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Section> Sections { get; set; }
     }
 }

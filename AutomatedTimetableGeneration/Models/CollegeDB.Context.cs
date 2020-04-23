@@ -13,10 +13,10 @@ namespace AutomatedTimetableGeneration.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CollegeDatabaseEntities1 : DbContext
+    public partial class CollegeDatabaseEntities10 : DbContext
     {
-        public CollegeDatabaseEntities1()
-            : base("name=CollegeDatabaseEntities1")
+        public CollegeDatabaseEntities10()
+            : base("name=CollegeDatabaseEntities10")
         {
         }
     
@@ -26,16 +26,27 @@ namespace AutomatedTimetableGeneration.Models
         }
     
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<AcademicYear> AcademicYears { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
-        public virtual DbSet<Instructor> Instructors { get; set; }
-        public virtual DbSet<Person> People { get; set; }
+        public virtual DbSet<Doctor_Available_Time> Doctor_Available_Time { get; set; }
+        public virtual DbSet<Group> Groups { get; set; }
+        public virtual DbSet<LectureTime> LectureTimes { get; set; }
+        public virtual DbSet<LinkCourseDept> LinkCourseDepts { get; set; }
+        public virtual DbSet<LinkDoctorCourse> LinkDoctorCourses { get; set; }
+        public virtual DbSet<LinkTaSectionTime> LinkTaSectionTimes { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
+        public virtual DbSet<RoomType> RoomTypes { get; set; }
         public virtual DbSet<Section> Sections { get; set; }
+        public virtual DbSet<SectionTime> SectionTimes { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Ta_Constraints> Ta_Constraints { get; set; }
+        public virtual DbSet<Ta_Wishes> Ta_Wishes { get; set; }
+        public virtual DbSet<VictimHistory> VictimHistories { get; set; }
+        public virtual DbSet<Year> Years { get; set; }
     }
 }

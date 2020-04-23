@@ -1,0 +1,83 @@
+﻿@model AutomatedTimetableGeneration.Models.AcademicYear
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Academic Year</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Year_id, "Year ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownList("Year_id", null, htmlAttributes: new { @class = "form-control input-circle" })
+                @Html.ValidationMessageFor(model => model.Year_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentsCount,"Students Number ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.StudentsCount, new { htmlAttributes = new { @class = "form-control input-circle" } })
+                @Html.ValidationMessageFor(model => model.StudentsCount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GroupCount,"Groups Number ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.GroupCount, new { htmlAttributes = new { @class = "form-control input-circle" } })
+                @Html.ValidationMessageFor(model => model.GroupCount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SectionCount,"Sections Number ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.SectionCount, new { htmlAttributes = new { @class = "form-control input-circle" } })
+                @Html.ValidationMessageFor(model => model.SectionCount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AcademicYear1,"Academic Year " ,htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.AcademicYear1, new { htmlAttributes = new { @class = "form-control input-circle" } })
+                @Html.ValidationMessageFor(model => model.AcademicYear1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DayWorkHours,"Hours per Day", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.DayWorkHours, new { htmlAttributes = new { @class = "form-control input-circle" } })
+                @Html.ValidationMessageFor(model => model.DayWorkHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AllowedGapHours, "Gap Hours ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.AllowedGapHours, new { htmlAttributes = new { @class = "form-control input-circle" } })
+                @Html.ValidationMessageFor(model => model.AllowedGapHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-circle  green" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <span class="btn btn-circle-left grey ">@Html.ActionLink("Back to List", "Index")</span>
+</div>

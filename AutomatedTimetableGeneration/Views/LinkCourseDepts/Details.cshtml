@@ -1,0 +1,39 @@
+﻿@model AutomatedTimetableGeneration.Models.LinkCourseDept
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutMetronic.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Course :")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Course.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Department :")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <span class="btn btn-circle grey">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID })
+    </span>
+    <br /><br />
+    <span class="btn btn-circle-left grey ">
+        @Html.ActionLink("Back to List", "Index")
+    </span>
+</p>

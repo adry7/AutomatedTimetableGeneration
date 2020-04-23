@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CollegeDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CollegeDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -14,6 +14,19 @@
           <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
           <Property Name="Model" Type="varbinary(max)" Nullable="false" />
           <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AcademicYear">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year_id" Type="int" Nullable="false" />
+          <Property Name="StudentsCount" Type="int" Nullable="false" />
+          <Property Name="GroupCount" Type="int" Nullable="false" />
+          <Property Name="SectionCount" Type="int" Nullable="false" />
+          <Property Name="AcademicYear" Type="int" Nullable="false" />
+          <Property Name="DayWorkHours" Type="int" />
+          <Property Name="AllowedGapHours" Type="int" />
         </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -65,98 +78,135 @@
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Department_id" Type="int" />
+          <Property Name="Experience" Type="int" />
+          <Property Name="isExternal" Type="bit" />
+          <Property Name="type" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Course">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="hours" Type="time" Precision="7" Nullable="false" />
-          <Property Name="type" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="academic_year" Type="tinyint" Nullable="false" />
-          <Property Name="department_id" Type="int" Nullable="false" />
-          <Property Name="students_count" Type="int" Nullable="false" />
-          <Property Name="start_time" Type="time" Precision="7" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Hours" Type="int" Nullable="false" />
+          <Property Name="HaveLab" Type="bit" Nullable="false" />
+          <Property Name="HaveSection" Type="bit" Nullable="false" />
+          <Property Name="LabHours" Type="int" />
+          <Property Name="SectionHours" Type="int" />
+          <Property Name="RoomType_id" Type="int" />
+          <Property Name="AcademicYear_id" Type="int" Nullable="false" />
+          <Property Name="StaffCount" Type="int" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="capacity" Type="int" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Capacity" Type="int" Nullable="false" />
+          <Property Name="AcademicYear_id" Type="int" Nullable="false" />
+          <Property Name="WorkHoursPerDay" Type="int" Nullable="false" />
+          <Property Name="AllowedGapHours" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Instructor">
+        <EntityType Name="Doctor_Available_Time">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="person_id" Type="int" Nullable="false" />
-          <Property Name="department_id" Type="int" Nullable="false" />
-          <Property Name="experience" Type="tinyint" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DayOfWeek" Type="int" Nullable="false" />
+          <Property Name="StartHour" Type="int" Nullable="false" />
+          <Property Name="Course_id" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Link_Course_Instructor">
+        <EntityType Name="Group">
           <Key>
-            <PropertyRef Name="course_id" />
-            <PropertyRef Name="instructor_id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="course_id" Type="int" Nullable="false" />
-          <Property Name="instructor_id" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+          <Property Name="AcadmicYear_id" Type="int" Nullable="false" />
+          <Property Name="Department_id" Type="int" />
         </EntityType>
-        <EntityType Name="Link_Course_Room">
+        <EntityType Name="LectureTime">
           <Key>
-            <PropertyRef Name="room_id" />
-            <PropertyRef Name="course_id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="room_id" Type="int" Nullable="false" />
-          <Property Name="course_id" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Course_id" Type="int" Nullable="false" />
+          <Property Name="Room_id" Type="int" Nullable="false" />
+          <Property Name="DayOfWeek" Type="int" Nullable="false" />
+          <Property Name="StartHour" Type="int" Nullable="false" />
+          <Property Name="Grp_id" Type="int" />
         </EntityType>
-        <EntityType Name="Link_Section_Instructor">
+        <EntityType Name="LinkCourseDept">
           <Key>
-            <PropertyRef Name="section_id" />
-            <PropertyRef Name="instructor_id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="section_id" Type="int" Nullable="false" />
-          <Property Name="instructor_id" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Course_id" Type="int" Nullable="false" />
+          <Property Name="Department_id" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Link_Section_Room">
+        <EntityType Name="LinkDoctorCourse">
           <Key>
-            <PropertyRef Name="room_id" />
-            <PropertyRef Name="section_id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="room_id" Type="int" Nullable="false" />
-          <Property Name="section_id" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Doctor_id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Course_id" Type="int" Nullable="false" />
+          <Property Name="hours" Type="int" />
         </EntityType>
-        <EntityType Name="Person">
+        <EntityType Name="LinkTaSectionTime">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="phone" Type="bigint" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ta_id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="isSupport" Type="bit" Nullable="false" />
+          <Property Name="SectionTime_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Room">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="type" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="pc" Type="bit" Nullable="false" />
-          <Property Name="capacity" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Capacity" Type="int" Nullable="false" />
+          <Property Name="RoomType_id" Type="int" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="Year_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoomType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="isLocked" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Section">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="course_id" Type="int" Nullable="false" />
-          <Property Name="hours" Type="time" Precision="7" Nullable="false" />
-          <Property Name="start_time" Type="time" Precision="7" Nullable="false" />
-          <Property Name="capacity" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year_id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+          <Property Name="Grp_id" Type="int" />
+        </EntityType>
+        <EntityType Name="SectionTime">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Section_id" Type="int" Nullable="false" />
+          <Property Name="Room_id" Type="int" Nullable="false" />
+          <Property Name="DayOfWeek" Type="int" Nullable="false" />
+          <Property Name="Course_id" Type="int" Nullable="false" />
+          <Property Name="isSection" Type="bit" />
+          <Property Name="isLab" Type="bit" />
+          <Property Name="StartHour" Type="int" />
+          <Property Name="Ta_id" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -168,15 +218,89 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <Association Name="FK_Course_Department">
-          <End Role="Department" Type="Self.Department" Multiplicity="1" />
-          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+        <EntityType Name="Ta_Constraints">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ta_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Start_Date" Type="date" Nullable="false" />
+          <Property Name="End_Date" Type="date" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Year_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ta_Wishes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Course_Id" Type="int" Nullable="false" />
+          <Property Name="Priority" Type="tinyint" Nullable="false" />
+          <Property Name="Ta_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="isAccepted" Type="bit" Nullable="false" />
+          <Property Name="Year_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VictimHistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year_id" Type="int" Nullable="false" />
+          <Property Name="Ta_id" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Year">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="Semster" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AcademicYear_Year">
+          <End Role="Year" Type="Self.Year" Multiplicity="1" />
+          <End Role="AcademicYear" Type="Self.AcademicYear" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AcademicYear">
+              <PropertyRef Name="Year_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUsers_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Department">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="Department_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_AcademicYear">
+          <End Role="AcademicYear" Type="Self.AcademicYear" Multiplicity="1" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AcademicYear">
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Course">
-              <PropertyRef Name="department_id" />
+              <PropertyRef Name="AcademicYear_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_RoomType">
+          <End Role="RoomType" Type="Self.RoomType" Multiplicity="0..1" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoomType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="RoomType_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -236,140 +360,321 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Instructor_Department">
-          <End Role="Department" Type="Self.Department" Multiplicity="1" />
-          <End Role="Instructor" Type="Self.Instructor" Multiplicity="*" />
+        <Association Name="FK_Department_AcademicYear">
+          <End Role="AcademicYear" Type="Self.AcademicYear" Multiplicity="1" />
+          <End Role="Department" Type="Self.Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AcademicYear">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="AcademicYear_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Doctor_Available_Time_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="Doctor_Available_Time" Type="Self.Doctor_Available_Time" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Doctor_Available_Time">
+              <PropertyRef Name="Course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_AcademicYear">
+          <End Role="AcademicYear" Type="Self.AcademicYear" Multiplicity="1" />
+          <End Role="Group" Type="Self.Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AcademicYear">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="AcadmicYear_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Group" Type="Self.Group" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Department">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Instructor">
-              <PropertyRef Name="department_id" />
+            <Dependent Role="Group">
+              <PropertyRef Name="Department_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Instructor_Person">
-          <End Role="Person" Type="Self.Person" Multiplicity="1" />
-          <End Role="Instructor" Type="Self.Instructor" Multiplicity="*" />
+        <Association Name="FK_LectureTime_Course">
+          <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
+          <End Role="LectureTime" Type="Self.LectureTime" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="id" />
+            <Principal Role="Group">
+              <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Instructor">
-              <PropertyRef Name="person_id" />
+            <Dependent Role="LectureTime">
+              <PropertyRef Name="Grp_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Link_Course_Instructor_Course">
-          <End Role="Course" Type="Self.Course" Multiplicity="1" />
-          <End Role="Link_Course_Instructor" Type="Self.Link_Course_Instructor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Course">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Link_Course_Instructor">
-              <PropertyRef Name="course_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Link_course_instructor_Instructor">
-          <End Role="Instructor" Type="Self.Instructor" Multiplicity="1" />
-          <End Role="Link_Course_Instructor" Type="Self.Link_Course_Instructor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Instructor">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Link_Course_Instructor">
-              <PropertyRef Name="instructor_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Link_Course_Room_Course">
-          <End Role="Course" Type="Self.Course" Multiplicity="1" />
-          <End Role="Link_Course_Room" Type="Self.Link_Course_Room" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Course">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Link_Course_Room">
-              <PropertyRef Name="course_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Link_Course_Room_Room">
+        <Association Name="FK_LectureTime_Room">
           <End Role="Room" Type="Self.Room" Multiplicity="1" />
-          <End Role="Link_Course_Room" Type="Self.Link_Course_Room" Multiplicity="*" />
+          <End Role="LectureTime" Type="Self.LectureTime" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Room">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Link_Course_Room">
-              <PropertyRef Name="room_id" />
+            <Dependent Role="LectureTime">
+              <PropertyRef Name="Room_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Link_Section_Instructor_Instructor">
-          <End Role="Instructor" Type="Self.Instructor" Multiplicity="1" />
-          <End Role="Link_Section_Instructor" Type="Self.Link_Section_Instructor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Instructor">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Link_Section_Instructor">
-              <PropertyRef Name="instructor_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Link_Section_Instructor_Section">
-          <End Role="Section" Type="Self.Section" Multiplicity="1" />
-          <End Role="Link_Section_Instructor" Type="Self.Link_Section_Instructor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Section">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Link_Section_Instructor">
-              <PropertyRef Name="section_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Link_Section_Room_Room">
-          <End Role="Room" Type="Self.Room" Multiplicity="1" />
-          <End Role="Link_Section_Room" Type="Self.Link_Section_Room" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Room">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Link_Section_Room">
-              <PropertyRef Name="room_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Link_Section_Room_Section">
-          <End Role="Section" Type="Self.Section" Multiplicity="1" />
-          <End Role="Link_Section_Room" Type="Self.Link_Section_Room" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Section">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Link_Section_Room">
-              <PropertyRef Name="section_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Section_Course">
+        <Association Name="FK_LinkCourseDept_Course">
           <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="LinkCourseDept" Type="Self.LinkCourseDept" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LinkCourseDept">
+              <PropertyRef Name="Course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LinkCourseDept_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="LinkCourseDept" Type="Self.LinkCourseDept" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LinkCourseDept">
+              <PropertyRef Name="Department_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LinkDoctorLectureTime_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="LinkDoctorCourse" Type="Self.LinkDoctorCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LinkDoctorCourse">
+              <PropertyRef Name="Doctor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LinkDoctorLectureTime_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="LinkDoctorCourse" Type="Self.LinkDoctorCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LinkDoctorCourse">
+              <PropertyRef Name="Course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LinkTaSectionTime_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="LinkTaSectionTime" Type="Self.LinkTaSectionTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LinkTaSectionTime">
+              <PropertyRef Name="Ta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LinkTaSectionTime_SectionTime">
+          <End Role="SectionTime" Type="Self.SectionTime" Multiplicity="1" />
+          <End Role="LinkTaSectionTime" Type="Self.LinkTaSectionTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SectionTime">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LinkTaSectionTime">
+              <PropertyRef Name="SectionTime_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_RoomType">
+          <End Role="RoomType" Type="Self.RoomType" Multiplicity="1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoomType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="RoomType_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_Year">
+          <End Role="Year" Type="Self.Year" Multiplicity="1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="Year_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Section_AcademicYear">
+          <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
           <End Role="Section" Type="Self.Section" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Course">
-              <PropertyRef Name="id" />
+            <Principal Role="Group">
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Section">
-              <PropertyRef Name="course_id" />
+              <PropertyRef Name="Grp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SectionTime_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="SectionTime" Type="Self.SectionTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SectionTime">
+              <PropertyRef Name="Ta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SectionTime_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="SectionTime" Type="Self.SectionTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SectionTime">
+              <PropertyRef Name="Course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SectionTime_Room">
+          <End Role="Room" Type="Self.Room" Multiplicity="1" />
+          <End Role="SectionTime" Type="Self.SectionTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SectionTime">
+              <PropertyRef Name="Room_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SectionTime_Section">
+          <End Role="Section" Type="Self.Section" Multiplicity="1" />
+          <End Role="SectionTime" Type="Self.SectionTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SectionTime">
+              <PropertyRef Name="Section_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ta_Constraints_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Ta_Constraints" Type="Self.Ta_Constraints" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ta_Constraints">
+              <PropertyRef Name="Ta_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ta_Constraints_Year">
+          <End Role="Year" Type="Self.Year" Multiplicity="1" />
+          <End Role="Ta_Constraints" Type="Self.Ta_Constraints" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Ta_Constraints">
+              <PropertyRef Name="Year_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ta_Wishes_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Ta_Wishes" Type="Self.Ta_Wishes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ta_Wishes">
+              <PropertyRef Name="Ta_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ta_Wishes_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="Ta_Wishes" Type="Self.Ta_Wishes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Ta_Wishes">
+              <PropertyRef Name="Course_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ta_Wishes_Year">
+          <End Role="Year" Type="Self.Year" Multiplicity="1" />
+          <End Role="Ta_Wishes" Type="Self.Ta_Wishes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Ta_Wishes">
+              <PropertyRef Name="Year_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VictimHistory_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="VictimHistory" Type="Self.VictimHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VictimHistory">
+              <PropertyRef Name="Ta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VictimHistory_Year">
+          <End Role="Year" Type="Self.Year" Multiplicity="1" />
+          <End Role="VictimHistory" Type="Self.VictimHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VictimHistory">
+              <PropertyRef Name="Year_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="CollegeDatabaseModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AcademicYear" EntityType="Self.AcademicYear" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -377,17 +682,35 @@
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Instructor" EntityType="Self.Instructor" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Link_Course_Instructor" EntityType="Self.Link_Course_Instructor" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Link_Course_Room" EntityType="Self.Link_Course_Room" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Link_Section_Instructor" EntityType="Self.Link_Section_Instructor" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Link_Section_Room" EntityType="Self.Link_Section_Room" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Doctor_Available_Time" EntityType="Self.Doctor_Available_Time" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LectureTime" EntityType="Self.LectureTime" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LinkCourseDept" EntityType="Self.LinkCourseDept" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LinkDoctorCourse" EntityType="Self.LinkDoctorCourse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LinkTaSectionTime" EntityType="Self.LinkTaSectionTime" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoomType" EntityType="Self.RoomType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Section" EntityType="Self.Section" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SectionTime" EntityType="Self.SectionTime" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Course_Department" Association="Self.FK_Course_Department">
+          <EntitySet Name="Ta_Constraints" EntityType="Self.Ta_Constraints" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ta_Wishes" EntityType="Self.Ta_Wishes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VictimHistory" EntityType="Self.VictimHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Year" EntityType="Self.Year" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AcademicYear_Year" Association="Self.FK_AcademicYear_Year">
+            <End Role="Year" EntitySet="Year" />
+            <End Role="AcademicYear" EntitySet="AcademicYear" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUsers_Department" Association="Self.FK_AspNetUsers_Department">
             <End Role="Department" EntitySet="Department" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_AcademicYear" Association="Self.FK_Course_AcademicYear">
+            <End Role="AcademicYear" EntitySet="AcademicYear" />
+            <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_RoomType" Association="Self.FK_Course_RoomType">
+            <End Role="RoomType" EntitySet="RoomType" />
             <End Role="Course" EntitySet="Course" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -406,53 +729,112 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
-          <AssociationSet Name="FK_Instructor_Department" Association="Self.FK_Instructor_Department">
+          <AssociationSet Name="FK_Department_AcademicYear" Association="Self.FK_Department_AcademicYear">
+            <End Role="AcademicYear" EntitySet="AcademicYear" />
             <End Role="Department" EntitySet="Department" />
-            <End Role="Instructor" EntitySet="Instructor" />
           </AssociationSet>
-          <AssociationSet Name="FK_Instructor_Person" Association="Self.FK_Instructor_Person">
-            <End Role="Person" EntitySet="Person" />
-            <End Role="Instructor" EntitySet="Instructor" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Link_Course_Instructor_Course" Association="Self.FK_Link_Course_Instructor_Course">
+          <AssociationSet Name="FK_Doctor_Available_Time_Course" Association="Self.FK_Doctor_Available_Time_Course">
             <End Role="Course" EntitySet="Course" />
-            <End Role="Link_Course_Instructor" EntitySet="Link_Course_Instructor" />
+            <End Role="Doctor_Available_Time" EntitySet="Doctor_Available_Time" />
           </AssociationSet>
-          <AssociationSet Name="FK_Link_course_instructor_Instructor" Association="Self.FK_Link_course_instructor_Instructor">
-            <End Role="Instructor" EntitySet="Instructor" />
-            <End Role="Link_Course_Instructor" EntitySet="Link_Course_Instructor" />
+          <AssociationSet Name="FK_Group_AcademicYear" Association="Self.FK_Group_AcademicYear">
+            <End Role="AcademicYear" EntitySet="AcademicYear" />
+            <End Role="Group" EntitySet="Group" />
           </AssociationSet>
-          <AssociationSet Name="FK_Link_Course_Room_Course" Association="Self.FK_Link_Course_Room_Course">
-            <End Role="Course" EntitySet="Course" />
-            <End Role="Link_Course_Room" EntitySet="Link_Course_Room" />
+          <AssociationSet Name="FK_Group_Department" Association="Self.FK_Group_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Group" EntitySet="Group" />
           </AssociationSet>
-          <AssociationSet Name="FK_Link_Course_Room_Room" Association="Self.FK_Link_Course_Room_Room">
+          <AssociationSet Name="FK_LectureTime_Course" Association="Self.FK_LectureTime_Course">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="LectureTime" EntitySet="LectureTime" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LectureTime_Room" Association="Self.FK_LectureTime_Room">
             <End Role="Room" EntitySet="Room" />
-            <End Role="Link_Course_Room" EntitySet="Link_Course_Room" />
+            <End Role="LectureTime" EntitySet="LectureTime" />
           </AssociationSet>
-          <AssociationSet Name="FK_Link_Section_Instructor_Instructor" Association="Self.FK_Link_Section_Instructor_Instructor">
-            <End Role="Instructor" EntitySet="Instructor" />
-            <End Role="Link_Section_Instructor" EntitySet="Link_Section_Instructor" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Link_Section_Instructor_Section" Association="Self.FK_Link_Section_Instructor_Section">
-            <End Role="Section" EntitySet="Section" />
-            <End Role="Link_Section_Instructor" EntitySet="Link_Section_Instructor" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Link_Section_Room_Room" Association="Self.FK_Link_Section_Room_Room">
-            <End Role="Room" EntitySet="Room" />
-            <End Role="Link_Section_Room" EntitySet="Link_Section_Room" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Link_Section_Room_Section" Association="Self.FK_Link_Section_Room_Section">
-            <End Role="Section" EntitySet="Section" />
-            <End Role="Link_Section_Room" EntitySet="Link_Section_Room" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Section_Course" Association="Self.FK_Section_Course">
+          <AssociationSet Name="FK_LinkCourseDept_Course" Association="Self.FK_LinkCourseDept_Course">
             <End Role="Course" EntitySet="Course" />
+            <End Role="LinkCourseDept" EntitySet="LinkCourseDept" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LinkCourseDept_Department" Association="Self.FK_LinkCourseDept_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="LinkCourseDept" EntitySet="LinkCourseDept" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LinkDoctorLectureTime_AspNetUsers" Association="Self.FK_LinkDoctorLectureTime_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="LinkDoctorCourse" EntitySet="LinkDoctorCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LinkDoctorLectureTime_Course" Association="Self.FK_LinkDoctorLectureTime_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="LinkDoctorCourse" EntitySet="LinkDoctorCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LinkTaSectionTime_AspNetUsers" Association="Self.FK_LinkTaSectionTime_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="LinkTaSectionTime" EntitySet="LinkTaSectionTime" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LinkTaSectionTime_SectionTime" Association="Self.FK_LinkTaSectionTime_SectionTime">
+            <End Role="SectionTime" EntitySet="SectionTime" />
+            <End Role="LinkTaSectionTime" EntitySet="LinkTaSectionTime" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room_RoomType" Association="Self.FK_Room_RoomType">
+            <End Role="RoomType" EntitySet="RoomType" />
+            <End Role="Room" EntitySet="Room" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room_Year" Association="Self.FK_Room_Year">
+            <End Role="Year" EntitySet="Year" />
+            <End Role="Room" EntitySet="Room" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Section_AcademicYear" Association="Self.FK_Section_AcademicYear">
+            <End Role="Group" EntitySet="Group" />
             <End Role="Section" EntitySet="Section" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionTime_AspNetUsers" Association="Self.FK_SectionTime_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="SectionTime" EntitySet="SectionTime" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionTime_Course" Association="Self.FK_SectionTime_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="SectionTime" EntitySet="SectionTime" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionTime_Room" Association="Self.FK_SectionTime_Room">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="SectionTime" EntitySet="SectionTime" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionTime_Section" Association="Self.FK_SectionTime_Section">
+            <End Role="Section" EntitySet="Section" />
+            <End Role="SectionTime" EntitySet="SectionTime" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ta_Constraints_AspNetUsers" Association="Self.FK_Ta_Constraints_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Ta_Constraints" EntitySet="Ta_Constraints" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ta_Constraints_Year" Association="Self.FK_Ta_Constraints_Year">
+            <End Role="Year" EntitySet="Year" />
+            <End Role="Ta_Constraints" EntitySet="Ta_Constraints" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ta_Wishes_AspNetUsers" Association="Self.FK_Ta_Wishes_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Ta_Wishes" EntitySet="Ta_Wishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ta_Wishes_Course" Association="Self.FK_Ta_Wishes_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Ta_Wishes" EntitySet="Ta_Wishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ta_Wishes_Year" Association="Self.FK_Ta_Wishes_Year">
+            <End Role="Year" EntitySet="Year" />
+            <End Role="Ta_Wishes" EntitySet="Ta_Wishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VictimHistory_AspNetUsers" Association="Self.FK_VictimHistory_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="VictimHistory" EntitySet="VictimHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VictimHistory_Year" Association="Self.FK_VictimHistory_Year">
+            <End Role="Year" EntitySet="Year" />
+            <End Role="VictimHistory" EntitySet="VictimHistory" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CollegeDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -465,6 +847,23 @@
           <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
           <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AcademicYear">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Year_id" Type="Int32" Nullable="false" />
+          <Property Name="StudentsCount" Type="Int32" Nullable="false" />
+          <Property Name="GroupCount" Type="Int32" Nullable="false" />
+          <Property Name="SectionCount" Type="Int32" Nullable="false" />
+          <Property Name="AcademicYear1" Type="Int32" Nullable="false" />
+          <Property Name="DayWorkHours" Type="Int32" />
+          <Property Name="AllowedGapHours" Type="Int32" />
+          <NavigationProperty Name="Year" Relationship="Self.FK_AcademicYear_Year" FromRole="AcademicYear" ToRole="Year" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK_Course_AcademicYear" FromRole="AcademicYear" ToRole="Course" />
+          <NavigationProperty Name="Departments" Relationship="Self.FK_Department_AcademicYear" FromRole="AcademicYear" ToRole="Department" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK_Group_AcademicYear" FromRole="AcademicYear" ToRole="Group" />
         </EntityType>
         <EntityType Name="AspNetRole">
           <Key>
@@ -511,85 +910,182 @@
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Department_id" Type="Int32" />
+          <Property Name="Experience" Type="Int32" />
+          <Property Name="isExternal" Type="Boolean" />
+          <Property Name="type" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="Department" Relationship="Self.FK_AspNetUsers_Department" FromRole="AspNetUsers" ToRole="Department" />
+          <NavigationProperty Name="LinkDoctorCourses" Relationship="Self.FK_LinkDoctorLectureTime_AspNetUsers" FromRole="AspNetUsers" ToRole="LinkDoctorCourse" />
+          <NavigationProperty Name="LinkTaSectionTimes" Relationship="Self.FK_LinkTaSectionTime_AspNetUsers" FromRole="AspNetUsers" ToRole="LinkTaSectionTime" />
+          <NavigationProperty Name="Ta_Constraints" Relationship="Self.FK_Ta_Constraints_AspNetUsers" FromRole="AspNetUsers" ToRole="Ta_Constraints" />
+          <NavigationProperty Name="Ta_Wishes" Relationship="Self.FK_Ta_Wishes_AspNetUsers" FromRole="AspNetUsers" ToRole="Ta_Wishes" />
+          <NavigationProperty Name="VictimHistories" Relationship="Self.FK_VictimHistory_AspNetUsers" FromRole="AspNetUsers" ToRole="VictimHistory" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="SectionTimes" Relationship="CollegeDatabaseModel.FK_SectionTime_AspNetUsers" FromRole="AspNetUser" ToRole="SectionTime" />
         </EntityType>
         <EntityType Name="Course">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="hours" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="academic_year" Type="Byte" Nullable="false" />
-          <Property Name="department_id" Type="Int32" Nullable="false" />
-          <Property Name="students_count" Type="Int32" Nullable="false" />
-          <Property Name="start_time" Type="Time" Nullable="false" Precision="7" />
-          <NavigationProperty Name="Department" Relationship="Self.FK_Course_Department" FromRole="Course" ToRole="Department" />
-          <NavigationProperty Name="Sections" Relationship="Self.FK_Section_Course" FromRole="Course" ToRole="Section" />
-          <NavigationProperty Name="Instructors" Relationship="Self.Link_Course_Instructor" FromRole="Course" ToRole="Instructor" />
-          <NavigationProperty Name="Rooms" Relationship="Self.Link_Course_Room" FromRole="Course" ToRole="Room" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Hours" Type="Int32" Nullable="false" />
+          <Property Name="HaveLab" Type="Boolean" Nullable="false" />
+          <Property Name="HaveSection" Type="Boolean" Nullable="false" />
+          <Property Name="LabHours" Type="Int32" />
+          <Property Name="SectionHours" Type="Int32" />
+          <Property Name="RoomType_id" Type="Int32" />
+          <Property Name="AcademicYear_id" Type="Int32" Nullable="false" />
+          <Property Name="StaffCount" Type="Int32" />
+          <NavigationProperty Name="AcademicYear" Relationship="Self.FK_Course_AcademicYear" FromRole="Course" ToRole="AcademicYear" />
+          <NavigationProperty Name="RoomType" Relationship="Self.FK_Course_RoomType" FromRole="Course" ToRole="RoomType" />
+          <NavigationProperty Name="Doctor_Available_Time" Relationship="Self.FK_Doctor_Available_Time_Course" FromRole="Course" ToRole="Doctor_Available_Time" />
+          <NavigationProperty Name="LinkCourseDepts" Relationship="Self.FK_LinkCourseDept_Course" FromRole="Course" ToRole="LinkCourseDept" />
+          <NavigationProperty Name="LinkDoctorCourses" Relationship="Self.FK_LinkDoctorLectureTime_Course" FromRole="Course" ToRole="LinkDoctorCourse" />
+          <NavigationProperty Name="SectionTimes" Relationship="Self.FK_SectionTime_Course" FromRole="Course" ToRole="SectionTime" />
+          <NavigationProperty Name="Ta_Wishes" Relationship="Self.FK_Ta_Wishes_Course" FromRole="Course" ToRole="Ta_Wishes" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="capacity" Type="Int32" />
-          <NavigationProperty Name="Courses" Relationship="Self.FK_Course_Department" FromRole="Department" ToRole="Course" />
-          <NavigationProperty Name="Instructors" Relationship="Self.FK_Instructor_Department" FromRole="Department" ToRole="Instructor" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Capacity" Type="Int32" Nullable="false" />
+          <Property Name="AcademicYear_id" Type="Int32" Nullable="false" />
+          <Property Name="WorkHoursPerDay" Type="Int32" Nullable="false" />
+          <Property Name="AllowedGapHours" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AcademicYear" Relationship="Self.FK_Department_AcademicYear" FromRole="Department" ToRole="AcademicYear" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_AspNetUsers_Department" FromRole="Department" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK_Group_Department" FromRole="Department" ToRole="Group" />
+          <NavigationProperty Name="LinkCourseDepts" Relationship="Self.FK_LinkCourseDept_Department" FromRole="Department" ToRole="LinkCourseDept" />
         </EntityType>
-        <EntityType Name="Instructor">
+        <EntityType Name="Doctor_Available_Time">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="person_id" Type="Int32" Nullable="false" />
-          <Property Name="department_id" Type="Int32" Nullable="false" />
-          <Property Name="experience" Type="Byte" Nullable="false" />
-          <NavigationProperty Name="Department" Relationship="Self.FK_Instructor_Department" FromRole="Instructor" ToRole="Department" />
-          <NavigationProperty Name="Person" Relationship="Self.FK_Instructor_Person" FromRole="Instructor" ToRole="Person" />
-          <NavigationProperty Name="Courses" Relationship="Self.Link_Course_Instructor" FromRole="Instructor" ToRole="Course" />
-          <NavigationProperty Name="Sections" Relationship="Self.Link_Section_Instructor" FromRole="Instructor" ToRole="Section" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DayOfWeek" Type="Int32" Nullable="false" />
+          <Property Name="StartHour" Type="Int32" Nullable="false" />
+          <Property Name="Course_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_Doctor_Available_Time_Course" FromRole="Doctor_Available_Time" ToRole="Course" />
         </EntityType>
-        <EntityType Name="Person">
+        <EntityType Name="Group">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="phone" Type="Int64" />
-          <NavigationProperty Name="Instructors" Relationship="Self.FK_Instructor_Person" FromRole="Person" ToRole="Instructor" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <Property Name="AcadmicYear_id" Type="Int32" Nullable="false" />
+          <Property Name="Department_id" Type="Int32" />
+          <NavigationProperty Name="AcademicYear" Relationship="Self.FK_Group_AcademicYear" FromRole="Group" ToRole="AcademicYear" />
+          <NavigationProperty Name="Department" Relationship="Self.FK_Group_Department" FromRole="Group" ToRole="Department" />
+          <NavigationProperty Name="LectureTimes" Relationship="Self.FK_LectureTime_Course" FromRole="Group" ToRole="LectureTime" />
+          <NavigationProperty Name="Sections" Relationship="Self.FK_Section_AcademicYear" FromRole="Group" ToRole="Section" />
+        </EntityType>
+        <EntityType Name="LectureTime">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Course_id" Type="Int32" Nullable="false" />
+          <Property Name="Room_id" Type="Int32" Nullable="false" />
+          <Property Name="DayOfWeek" Type="Int32" Nullable="false" />
+          <Property Name="StartHour" Type="Int32" Nullable="false" />
+          <Property Name="Grp_id" Type="Int32" />
+          <NavigationProperty Name="Group" Relationship="Self.FK_LectureTime_Course" FromRole="LectureTime" ToRole="Group" />
+          <NavigationProperty Name="Room" Relationship="Self.FK_LectureTime_Room" FromRole="LectureTime" ToRole="Room" />
+        </EntityType>
+        <EntityType Name="LinkCourseDept">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Course_id" Type="Int32" Nullable="false" />
+          <Property Name="Department_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_LinkCourseDept_Course" FromRole="LinkCourseDept" ToRole="Course" />
+          <NavigationProperty Name="Department" Relationship="Self.FK_LinkCourseDept_Department" FromRole="LinkCourseDept" ToRole="Department" />
+        </EntityType>
+        <EntityType Name="LinkDoctorCourse">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Doctor_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Course_id" Type="Int32" Nullable="false" />
+          <Property Name="hours" Type="Int32" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_LinkDoctorLectureTime_AspNetUsers" FromRole="LinkDoctorCourse" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_LinkDoctorLectureTime_Course" FromRole="LinkDoctorCourse" ToRole="Course" />
+        </EntityType>
+        <EntityType Name="LinkTaSectionTime">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ta_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="isSupport" Type="Boolean" Nullable="false" />
+          <Property Name="SectionTime_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_LinkTaSectionTime_AspNetUsers" FromRole="LinkTaSectionTime" ToRole="AspNetUsers" />
+          <NavigationProperty Name="SectionTime" Relationship="Self.FK_LinkTaSectionTime_SectionTime" FromRole="LinkTaSectionTime" ToRole="SectionTime" />
         </EntityType>
         <EntityType Name="Room">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="pc" Type="Boolean" Nullable="false" />
-          <Property Name="capacity" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Courses" Relationship="Self.Link_Course_Room" FromRole="Room" ToRole="Course" />
-          <NavigationProperty Name="Sections" Relationship="Self.Link_Section_Room" FromRole="Room" ToRole="Section" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Capacity" Type="Int32" Nullable="false" />
+          <Property Name="RoomType_id" Type="Int32" Nullable="false" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="Year_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="LectureTimes" Relationship="Self.FK_LectureTime_Room" FromRole="Room" ToRole="LectureTime" />
+          <NavigationProperty Name="RoomType" Relationship="Self.FK_Room_RoomType" FromRole="Room" ToRole="RoomType" />
+          <NavigationProperty Name="Year" Relationship="Self.FK_Room_Year" FromRole="Room" ToRole="Year" />
+          <NavigationProperty Name="SectionTimes" Relationship="Self.FK_SectionTime_Room" FromRole="Room" ToRole="SectionTime" />
+        </EntityType>
+        <EntityType Name="RoomType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="isLocked" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK_Course_RoomType" FromRole="RoomType" ToRole="Course" />
+          <NavigationProperty Name="Rooms" Relationship="Self.FK_Room_RoomType" FromRole="RoomType" ToRole="Room" />
         </EntityType>
         <EntityType Name="Section">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="course_id" Type="Int32" Nullable="false" />
-          <Property Name="hours" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="start_time" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="capacity" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Course" Relationship="Self.FK_Section_Course" FromRole="Section" ToRole="Course" />
-          <NavigationProperty Name="Instructors" Relationship="Self.Link_Section_Instructor" FromRole="Section" ToRole="Instructor" />
-          <NavigationProperty Name="Rooms" Relationship="Self.Link_Section_Room" FromRole="Section" ToRole="Room" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Year_id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <Property Name="Grp_id" Type="Int32" />
+          <NavigationProperty Name="Group" Relationship="Self.FK_Section_AcademicYear" FromRole="Section" ToRole="Group" />
+          <NavigationProperty Name="SectionTimes" Relationship="Self.FK_SectionTime_Section" FromRole="Section" ToRole="SectionTime" />
+        </EntityType>
+        <EntityType Name="SectionTime">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Section_id" Type="Int32" Nullable="false" />
+          <Property Name="Room_id" Type="Int32" Nullable="false" />
+          <Property Name="DayOfWeek" Type="Int32" Nullable="false" />
+          <Property Name="Course_id" Type="Int32" Nullable="false" />
+          <Property Name="isSection" Type="Boolean" />
+          <Property Name="isLab" Type="Boolean" />
+          <Property Name="StartHour" Type="Int32" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_SectionTime_Course" FromRole="SectionTime" ToRole="Course" />
+          <NavigationProperty Name="LinkTaSectionTimes" Relationship="Self.FK_LinkTaSectionTime_SectionTime" FromRole="SectionTime" ToRole="LinkTaSectionTime" />
+          <NavigationProperty Name="Room" Relationship="Self.FK_SectionTime_Room" FromRole="SectionTime" ToRole="Room" />
+          <NavigationProperty Name="Section" Relationship="Self.FK_SectionTime_Section" FromRole="SectionTime" ToRole="Section" />
+          <Property Name="Ta_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="CollegeDatabaseModel.FK_SectionTime_AspNetUsers" FromRole="SectionTime" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -601,6 +1097,104 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <EntityType Name="Ta_Constraints">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ta_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Start_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="End_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Year_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Ta_Constraints_AspNetUsers" FromRole="Ta_Constraints" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Year" Relationship="Self.FK_Ta_Constraints_Year" FromRole="Ta_Constraints" ToRole="Year" />
+        </EntityType>
+        <EntityType Name="Ta_Wishes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Course_Id" Type="Int32" Nullable="false" />
+          <Property Name="Priority" Type="Byte" Nullable="false" />
+          <Property Name="Ta_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="isAccepted" Type="Boolean" Nullable="false" />
+          <Property Name="Year_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Ta_Wishes_AspNetUsers" FromRole="Ta_Wishes" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_Ta_Wishes_Course" FromRole="Ta_Wishes" ToRole="Course" />
+          <NavigationProperty Name="Year" Relationship="Self.FK_Ta_Wishes_Year" FromRole="Ta_Wishes" ToRole="Year" />
+        </EntityType>
+        <EntityType Name="VictimHistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Year_id" Type="Int32" Nullable="false" />
+          <Property Name="Ta_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_VictimHistory_AspNetUsers" FromRole="VictimHistory" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Year" Relationship="Self.FK_VictimHistory_Year" FromRole="VictimHistory" ToRole="Year" />
+        </EntityType>
+        <EntityType Name="Year">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Year1" Type="Int32" Nullable="false" />
+          <Property Name="Semster" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AcademicYears" Relationship="Self.FK_AcademicYear_Year" FromRole="Year" ToRole="AcademicYear" />
+          <NavigationProperty Name="Rooms" Relationship="Self.FK_Room_Year" FromRole="Year" ToRole="Room" />
+          <NavigationProperty Name="Ta_Constraints" Relationship="Self.FK_Ta_Constraints_Year" FromRole="Year" ToRole="Ta_Constraints" />
+          <NavigationProperty Name="Ta_Wishes" Relationship="Self.FK_Ta_Wishes_Year" FromRole="Year" ToRole="Ta_Wishes" />
+          <NavigationProperty Name="VictimHistories" Relationship="Self.FK_VictimHistory_Year" FromRole="Year" ToRole="VictimHistory" />
+        </EntityType>
+        <Association Name="FK_AcademicYear_Year">
+          <End Role="Year" Type="Self.Year" Multiplicity="1" />
+          <End Role="AcademicYear" Type="Self.AcademicYear" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AcademicYear">
+              <PropertyRef Name="Year_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_AcademicYear">
+          <End Role="AcademicYear" Type="Self.AcademicYear" Multiplicity="1" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AcademicYear">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="AcademicYear_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Department_AcademicYear">
+          <End Role="AcademicYear" Type="Self.AcademicYear" Multiplicity="1" />
+          <End Role="Department" Type="Self.Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AcademicYear">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="AcademicYear_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_AcademicYear">
+          <End Role="AcademicYear" Type="Self.AcademicYear" Multiplicity="1" />
+          <End Role="Group" Type="Self.Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AcademicYear">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="AcadmicYear_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -629,51 +1223,303 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Course_Department">
-          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+        <Association Name="FK_AspNetUsers_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="Department_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LinkDoctorLectureTime_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="LinkDoctorCourse" Type="Self.LinkDoctorCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LinkDoctorCourse">
+              <PropertyRef Name="Doctor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LinkTaSectionTime_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="LinkTaSectionTime" Type="Self.LinkTaSectionTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LinkTaSectionTime">
+              <PropertyRef Name="Ta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ta_Constraints_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Ta_Constraints" Type="Self.Ta_Constraints" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ta_Constraints">
+              <PropertyRef Name="Ta_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ta_Wishes_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Ta_Wishes" Type="Self.Ta_Wishes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ta_Wishes">
+              <PropertyRef Name="Ta_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VictimHistory_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="VictimHistory" Type="Self.VictimHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VictimHistory">
+              <PropertyRef Name="Ta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_RoomType">
+          <End Role="RoomType" Type="Self.RoomType" Multiplicity="0..1" />
           <End Role="Course" Type="Self.Course" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Department">
-              <PropertyRef Name="id" />
+            <Principal Role="RoomType">
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Course">
-              <PropertyRef Name="department_id" />
+              <PropertyRef Name="RoomType_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Section_Course">
+        <Association Name="FK_Doctor_Available_Time_Course">
           <End Role="Course" Type="Self.Course" Multiplicity="1" />
-          <End Role="Section" Type="Self.Section" Multiplicity="*" />
+          <End Role="Doctor_Available_Time" Type="Self.Doctor_Available_Time" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Course">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Section">
-              <PropertyRef Name="course_id" />
+            <Dependent Role="Doctor_Available_Time">
+              <PropertyRef Name="Course_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Instructor_Department">
-          <End Role="Department" Type="Self.Department" Multiplicity="1" />
-          <End Role="Instructor" Type="Self.Instructor" Multiplicity="*" />
+        <Association Name="FK_LinkCourseDept_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="LinkCourseDept" Type="Self.LinkCourseDept" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LinkCourseDept">
+              <PropertyRef Name="Course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LinkDoctorLectureTime_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="LinkDoctorCourse" Type="Self.LinkDoctorCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LinkDoctorCourse">
+              <PropertyRef Name="Course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SectionTime_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="SectionTime" Type="Self.SectionTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SectionTime">
+              <PropertyRef Name="Course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ta_Wishes_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="Ta_Wishes" Type="Self.Ta_Wishes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Ta_Wishes">
+              <PropertyRef Name="Course_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Group" Type="Self.Group" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Department">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Instructor">
-              <PropertyRef Name="department_id" />
+            <Dependent Role="Group">
+              <PropertyRef Name="Department_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Instructor_Person">
-          <End Role="Person" Type="Self.Person" Multiplicity="1" />
-          <End Role="Instructor" Type="Self.Instructor" Multiplicity="*" />
+        <Association Name="FK_LinkCourseDept_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="LinkCourseDept" Type="Self.LinkCourseDept" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="id" />
+            <Principal Role="Department">
+              <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Instructor">
-              <PropertyRef Name="person_id" />
+            <Dependent Role="LinkCourseDept">
+              <PropertyRef Name="Department_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LectureTime_Course">
+          <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
+          <End Role="LectureTime" Type="Self.LectureTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LectureTime">
+              <PropertyRef Name="Grp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Section_AcademicYear">
+          <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
+          <End Role="Section" Type="Self.Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Section">
+              <PropertyRef Name="Grp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LectureTime_Room">
+          <End Role="Room" Type="Self.Room" Multiplicity="1" />
+          <End Role="LectureTime" Type="Self.LectureTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LectureTime">
+              <PropertyRef Name="Room_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LinkTaSectionTime_SectionTime">
+          <End Role="SectionTime" Type="Self.SectionTime" Multiplicity="1" />
+          <End Role="LinkTaSectionTime" Type="Self.LinkTaSectionTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SectionTime">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LinkTaSectionTime">
+              <PropertyRef Name="SectionTime_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_RoomType">
+          <End Role="RoomType" Type="Self.RoomType" Multiplicity="1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoomType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="RoomType_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_Year">
+          <End Role="Year" Type="Self.Year" Multiplicity="1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="Year_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SectionTime_Room">
+          <End Role="Room" Type="Self.Room" Multiplicity="1" />
+          <End Role="SectionTime" Type="Self.SectionTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SectionTime">
+              <PropertyRef Name="Room_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SectionTime_Section">
+          <End Role="Section" Type="Self.Section" Multiplicity="1" />
+          <End Role="SectionTime" Type="Self.SectionTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SectionTime">
+              <PropertyRef Name="Section_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ta_Constraints_Year">
+          <End Role="Year" Type="Self.Year" Multiplicity="1" />
+          <End Role="Ta_Constraints" Type="Self.Ta_Constraints" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Ta_Constraints">
+              <PropertyRef Name="Year_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ta_Wishes_Year">
+          <End Role="Year" Type="Self.Year" Multiplicity="1" />
+          <End Role="Ta_Wishes" Type="Self.Ta_Wishes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Ta_Wishes">
+              <PropertyRef Name="Year_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VictimHistory_Year">
+          <End Role="Year" Type="Self.Year" Multiplicity="1" />
+          <End Role="VictimHistory" Type="Self.VictimHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VictimHistory">
+              <PropertyRef Name="Year_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -681,35 +1527,46 @@
           <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
-        <Association Name="Link_Course_Instructor">
-          <End Role="Course" Type="Self.Course" Multiplicity="*" />
-          <End Role="Instructor" Type="Self.Instructor" Multiplicity="*" />
-        </Association>
-        <Association Name="Link_Course_Room">
-          <End Role="Course" Type="Self.Course" Multiplicity="*" />
-          <End Role="Room" Type="Self.Room" Multiplicity="*" />
-        </Association>
-        <Association Name="Link_Section_Instructor">
-          <End Role="Instructor" Type="Self.Instructor" Multiplicity="*" />
-          <End Role="Section" Type="Self.Section" Multiplicity="*" />
-        </Association>
-        <Association Name="Link_Section_Room">
-          <End Role="Room" Type="Self.Room" Multiplicity="*" />
-          <End Role="Section" Type="Self.Section" Multiplicity="*" />
-        </Association>
-        <EntityContainer Name="CollegeDatabaseEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CollegeDatabaseEntities10" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AcademicYears" EntityType="Self.AcademicYear" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
           <EntitySet Name="Courses" EntityType="Self.Course" />
           <EntitySet Name="Departments" EntityType="Self.Department" />
-          <EntitySet Name="Instructors" EntityType="Self.Instructor" />
-          <EntitySet Name="People" EntityType="Self.Person" />
+          <EntitySet Name="Doctor_Available_Time" EntityType="Self.Doctor_Available_Time" />
+          <EntitySet Name="Groups" EntityType="Self.Group" />
+          <EntitySet Name="LectureTimes" EntityType="Self.LectureTime" />
+          <EntitySet Name="LinkCourseDepts" EntityType="Self.LinkCourseDept" />
+          <EntitySet Name="LinkDoctorCourses" EntityType="Self.LinkDoctorCourse" />
+          <EntitySet Name="LinkTaSectionTimes" EntityType="Self.LinkTaSectionTime" />
           <EntitySet Name="Rooms" EntityType="Self.Room" />
+          <EntitySet Name="RoomTypes" EntityType="Self.RoomType" />
           <EntitySet Name="Sections" EntityType="Self.Section" />
+          <EntitySet Name="SectionTimes" EntityType="Self.SectionTime" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Ta_Constraints" EntityType="Self.Ta_Constraints" />
+          <EntitySet Name="Ta_Wishes" EntityType="Self.Ta_Wishes" />
+          <EntitySet Name="VictimHistories" EntityType="Self.VictimHistory" />
+          <EntitySet Name="Years" EntityType="Self.Year" />
+          <AssociationSet Name="FK_AcademicYear_Year" Association="Self.FK_AcademicYear_Year">
+            <End Role="Year" EntitySet="Years" />
+            <End Role="AcademicYear" EntitySet="AcademicYears" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_AcademicYear" Association="Self.FK_Course_AcademicYear">
+            <End Role="AcademicYear" EntitySet="AcademicYears" />
+            <End Role="Course" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Department_AcademicYear" Association="Self.FK_Department_AcademicYear">
+            <End Role="AcademicYear" EntitySet="AcademicYears" />
+            <End Role="Department" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Group_AcademicYear" Association="Self.FK_Group_AcademicYear">
+            <End Role="AcademicYear" EntitySet="AcademicYears" />
+            <End Role="Group" EntitySet="Groups" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -718,49 +1575,133 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="FK_Course_Department" Association="Self.FK_Course_Department">
+          <AssociationSet Name="FK_AspNetUsers_Department" Association="Self.FK_AspNetUsers_Department">
             <End Role="Department" EntitySet="Departments" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LinkDoctorLectureTime_AspNetUsers" Association="Self.FK_LinkDoctorLectureTime_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="LinkDoctorCourse" EntitySet="LinkDoctorCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LinkTaSectionTime_AspNetUsers" Association="Self.FK_LinkTaSectionTime_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="LinkTaSectionTime" EntitySet="LinkTaSectionTimes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ta_Constraints_AspNetUsers" Association="Self.FK_Ta_Constraints_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Ta_Constraints" EntitySet="Ta_Constraints" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ta_Wishes_AspNetUsers" Association="Self.FK_Ta_Wishes_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Ta_Wishes" EntitySet="Ta_Wishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VictimHistory_AspNetUsers" Association="Self.FK_VictimHistory_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="VictimHistory" EntitySet="VictimHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_RoomType" Association="Self.FK_Course_RoomType">
+            <End Role="RoomType" EntitySet="RoomTypes" />
             <End Role="Course" EntitySet="Courses" />
           </AssociationSet>
-          <AssociationSet Name="FK_Section_Course" Association="Self.FK_Section_Course">
+          <AssociationSet Name="FK_Doctor_Available_Time_Course" Association="Self.FK_Doctor_Available_Time_Course">
             <End Role="Course" EntitySet="Courses" />
+            <End Role="Doctor_Available_Time" EntitySet="Doctor_Available_Time" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LinkCourseDept_Course" Association="Self.FK_LinkCourseDept_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="LinkCourseDept" EntitySet="LinkCourseDepts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LinkDoctorLectureTime_Course" Association="Self.FK_LinkDoctorLectureTime_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="LinkDoctorCourse" EntitySet="LinkDoctorCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionTime_Course" Association="Self.FK_SectionTime_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="SectionTime" EntitySet="SectionTimes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ta_Wishes_Course" Association="Self.FK_Ta_Wishes_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Ta_Wishes" EntitySet="Ta_Wishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Group_Department" Association="Self.FK_Group_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Group" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LinkCourseDept_Department" Association="Self.FK_LinkCourseDept_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="LinkCourseDept" EntitySet="LinkCourseDepts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LectureTime_Course" Association="Self.FK_LectureTime_Course">
+            <End Role="Group" EntitySet="Groups" />
+            <End Role="LectureTime" EntitySet="LectureTimes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Section_AcademicYear" Association="Self.FK_Section_AcademicYear">
+            <End Role="Group" EntitySet="Groups" />
             <End Role="Section" EntitySet="Sections" />
           </AssociationSet>
-          <AssociationSet Name="FK_Instructor_Department" Association="Self.FK_Instructor_Department">
-            <End Role="Department" EntitySet="Departments" />
-            <End Role="Instructor" EntitySet="Instructors" />
+          <AssociationSet Name="FK_LectureTime_Room" Association="Self.FK_LectureTime_Room">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="LectureTime" EntitySet="LectureTimes" />
           </AssociationSet>
-          <AssociationSet Name="FK_Instructor_Person" Association="Self.FK_Instructor_Person">
-            <End Role="Person" EntitySet="People" />
-            <End Role="Instructor" EntitySet="Instructors" />
+          <AssociationSet Name="FK_LinkTaSectionTime_SectionTime" Association="Self.FK_LinkTaSectionTime_SectionTime">
+            <End Role="SectionTime" EntitySet="SectionTimes" />
+            <End Role="LinkTaSectionTime" EntitySet="LinkTaSectionTimes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room_RoomType" Association="Self.FK_Room_RoomType">
+            <End Role="RoomType" EntitySet="RoomTypes" />
+            <End Role="Room" EntitySet="Rooms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room_Year" Association="Self.FK_Room_Year">
+            <End Role="Year" EntitySet="Years" />
+            <End Role="Room" EntitySet="Rooms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionTime_Room" Association="Self.FK_SectionTime_Room">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="SectionTime" EntitySet="SectionTimes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionTime_Section" Association="Self.FK_SectionTime_Section">
+            <End Role="Section" EntitySet="Sections" />
+            <End Role="SectionTime" EntitySet="SectionTimes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ta_Constraints_Year" Association="Self.FK_Ta_Constraints_Year">
+            <End Role="Year" EntitySet="Years" />
+            <End Role="Ta_Constraints" EntitySet="Ta_Constraints" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ta_Wishes_Year" Association="Self.FK_Ta_Wishes_Year">
+            <End Role="Year" EntitySet="Years" />
+            <End Role="Ta_Wishes" EntitySet="Ta_Wishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VictimHistory_Year" Association="Self.FK_VictimHistory_Year">
+            <End Role="Year" EntitySet="Years" />
+            <End Role="VictimHistory" EntitySet="VictimHistories" />
           </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <AssociationSet Name="Link_Course_Instructor" Association="Self.Link_Course_Instructor">
-            <End Role="Course" EntitySet="Courses" />
-            <End Role="Instructor" EntitySet="Instructors" />
-          </AssociationSet>
-          <AssociationSet Name="Link_Course_Room" Association="Self.Link_Course_Room">
-            <End Role="Course" EntitySet="Courses" />
-            <End Role="Room" EntitySet="Rooms" />
-          </AssociationSet>
-          <AssociationSet Name="Link_Section_Instructor" Association="Self.Link_Section_Instructor">
-            <End Role="Instructor" EntitySet="Instructors" />
-            <End Role="Section" EntitySet="Sections" />
-          </AssociationSet>
-          <AssociationSet Name="Link_Section_Room" Association="Self.Link_Section_Room">
-            <End Role="Room" EntitySet="Rooms" />
-            <End Role="Section" EntitySet="Sections" />
+          <AssociationSet Name="FK_SectionTime_AspNetUsers" Association="CollegeDatabaseModel.FK_SectionTime_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="SectionTime" EntitySet="SectionTimes" />
           </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_SectionTime_AspNetUsers">
+          <End Type="CollegeDatabaseModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="CollegeDatabaseModel.SectionTime" Role="SectionTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SectionTime">
+              <PropertyRef Name="Ta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CollegeDatabaseModelStoreContainer" CdmEntityContainer="CollegeDatabaseEntities1">
+        <EntityContainerMapping StorageEntityContainer="CollegeDatabaseModelStoreContainer" CdmEntityContainer="CollegeDatabaseEntities10">
           <EntitySetMapping Name="C__MigrationHistory">
             <EntityTypeMapping TypeName="CollegeDatabaseModel.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
@@ -768,6 +1709,20 @@
                 <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
                 <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AcademicYears">
+            <EntityTypeMapping TypeName="CollegeDatabaseModel.AcademicYear">
+              <MappingFragment StoreEntitySet="AcademicYear">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Year_id" ColumnName="Year_id" />
+                <ScalarProperty Name="StudentsCount" ColumnName="StudentsCount" />
+                <ScalarProperty Name="GroupCount" ColumnName="GroupCount" />
+                <ScalarProperty Name="SectionCount" ColumnName="SectionCount" />
+                <ScalarProperty Name="AcademicYear1" ColumnName="AcademicYear" />
+                <ScalarProperty Name="DayWorkHours" ColumnName="DayWorkHours" />
+                <ScalarProperty Name="AllowedGapHours" ColumnName="AllowedGapHours" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -813,72 +1768,147 @@
                 <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Department_id" ColumnName="Department_id" />
+                <ScalarProperty Name="Experience" ColumnName="Experience" />
+                <ScalarProperty Name="isExternal" ColumnName="isExternal" />
+                <ScalarProperty Name="type" ColumnName="type" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="CollegeDatabaseModel.Course">
               <MappingFragment StoreEntitySet="Course">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="hours" ColumnName="hours" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="academic_year" ColumnName="academic_year" />
-                <ScalarProperty Name="department_id" ColumnName="department_id" />
-                <ScalarProperty Name="students_count" ColumnName="students_count" />
-                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Hours" ColumnName="Hours" />
+                <ScalarProperty Name="HaveLab" ColumnName="HaveLab" />
+                <ScalarProperty Name="HaveSection" ColumnName="HaveSection" />
+                <ScalarProperty Name="LabHours" ColumnName="LabHours" />
+                <ScalarProperty Name="SectionHours" ColumnName="SectionHours" />
+                <ScalarProperty Name="RoomType_id" ColumnName="RoomType_id" />
+                <ScalarProperty Name="AcademicYear_id" ColumnName="AcademicYear_id" />
+                <ScalarProperty Name="StaffCount" ColumnName="StaffCount" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Departments">
             <EntityTypeMapping TypeName="CollegeDatabaseModel.Department">
               <MappingFragment StoreEntitySet="Department">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="capacity" ColumnName="capacity" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+                <ScalarProperty Name="AcademicYear_id" ColumnName="AcademicYear_id" />
+                <ScalarProperty Name="WorkHoursPerDay" ColumnName="WorkHoursPerDay" />
+                <ScalarProperty Name="AllowedGapHours" ColumnName="AllowedGapHours" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Instructors">
-            <EntityTypeMapping TypeName="CollegeDatabaseModel.Instructor">
-              <MappingFragment StoreEntitySet="Instructor">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="person_id" ColumnName="person_id" />
-                <ScalarProperty Name="department_id" ColumnName="department_id" />
-                <ScalarProperty Name="experience" ColumnName="experience" />
+          <EntitySetMapping Name="Doctor_Available_Time">
+            <EntityTypeMapping TypeName="CollegeDatabaseModel.Doctor_Available_Time">
+              <MappingFragment StoreEntitySet="Doctor_Available_Time">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+                <ScalarProperty Name="StartHour" ColumnName="StartHour" />
+                <ScalarProperty Name="Course_id" ColumnName="Course_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="People">
-            <EntityTypeMapping TypeName="CollegeDatabaseModel.Person">
-              <MappingFragment StoreEntitySet="Person">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="CollegeDatabaseModel.Group">
+              <MappingFragment StoreEntitySet="Group">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="AcadmicYear_id" ColumnName="AcadmicYear_id" />
+                <ScalarProperty Name="Department_id" ColumnName="Department_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LectureTimes">
+            <EntityTypeMapping TypeName="CollegeDatabaseModel.LectureTime">
+              <MappingFragment StoreEntitySet="LectureTime">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Course_id" ColumnName="Course_id" />
+                <ScalarProperty Name="Room_id" ColumnName="Room_id" />
+                <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+                <ScalarProperty Name="StartHour" ColumnName="StartHour" />
+                <ScalarProperty Name="Grp_id" ColumnName="Grp_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LinkCourseDepts">
+            <EntityTypeMapping TypeName="CollegeDatabaseModel.LinkCourseDept">
+              <MappingFragment StoreEntitySet="LinkCourseDept">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Course_id" ColumnName="Course_id" />
+                <ScalarProperty Name="Department_id" ColumnName="Department_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LinkDoctorCourses">
+            <EntityTypeMapping TypeName="CollegeDatabaseModel.LinkDoctorCourse">
+              <MappingFragment StoreEntitySet="LinkDoctorCourse">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Doctor_id" ColumnName="Doctor_id" />
+                <ScalarProperty Name="Course_id" ColumnName="Course_id" />
+                <ScalarProperty Name="hours" ColumnName="hours" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LinkTaSectionTimes">
+            <EntityTypeMapping TypeName="CollegeDatabaseModel.LinkTaSectionTime">
+              <MappingFragment StoreEntitySet="LinkTaSectionTime">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Ta_id" ColumnName="Ta_id" />
+                <ScalarProperty Name="isSupport" ColumnName="isSupport" />
+                <ScalarProperty Name="SectionTime_id" ColumnName="SectionTime_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Rooms">
             <EntityTypeMapping TypeName="CollegeDatabaseModel.Room">
               <MappingFragment StoreEntitySet="Room">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="pc" ColumnName="pc" />
-                <ScalarProperty Name="capacity" ColumnName="capacity" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+                <ScalarProperty Name="RoomType_id" ColumnName="RoomType_id" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="Year_id" ColumnName="Year_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomTypes">
+            <EntityTypeMapping TypeName="CollegeDatabaseModel.RoomType">
+              <MappingFragment StoreEntitySet="RoomType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="isLocked" ColumnName="isLocked" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sections">
             <EntityTypeMapping TypeName="CollegeDatabaseModel.Section">
               <MappingFragment StoreEntitySet="Section">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="course_id" ColumnName="course_id" />
-                <ScalarProperty Name="hours" ColumnName="hours" />
-                <ScalarProperty Name="start_time" ColumnName="start_time" />
-                <ScalarProperty Name="capacity" ColumnName="capacity" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Year_id" ColumnName="Year_id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="Grp_id" ColumnName="Grp_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SectionTimes">
+            <EntityTypeMapping TypeName="CollegeDatabaseModel.SectionTime">
+              <MappingFragment StoreEntitySet="SectionTime">
+                <ScalarProperty Name="Ta_id" ColumnName="Ta_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Section_id" ColumnName="Section_id" />
+                <ScalarProperty Name="Room_id" ColumnName="Room_id" />
+                <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+                <ScalarProperty Name="Course_id" ColumnName="Course_id" />
+                <ScalarProperty Name="isSection" ColumnName="isSection" />
+                <ScalarProperty Name="isLab" ColumnName="isLab" />
+                <ScalarProperty Name="StartHour" ColumnName="StartHour" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -893,44 +1923,54 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Ta_Constraints">
+            <EntityTypeMapping TypeName="CollegeDatabaseModel.Ta_Constraints">
+              <MappingFragment StoreEntitySet="Ta_Constraints">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Ta_Id" ColumnName="Ta_Id" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Year_id" ColumnName="Year_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ta_Wishes">
+            <EntityTypeMapping TypeName="CollegeDatabaseModel.Ta_Wishes">
+              <MappingFragment StoreEntitySet="Ta_Wishes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Course_Id" ColumnName="Course_Id" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Ta_Id" ColumnName="Ta_Id" />
+                <ScalarProperty Name="isAccepted" ColumnName="isAccepted" />
+                <ScalarProperty Name="Year_id" ColumnName="Year_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VictimHistories">
+            <EntityTypeMapping TypeName="CollegeDatabaseModel.VictimHistory">
+              <MappingFragment StoreEntitySet="VictimHistory">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Year_id" ColumnName="Year_id" />
+                <ScalarProperty Name="Ta_id" ColumnName="Ta_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Years">
+            <EntityTypeMapping TypeName="CollegeDatabaseModel.Year">
+              <MappingFragment StoreEntitySet="Year">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Year1" ColumnName="Year" />
+                <ScalarProperty Name="Semster" ColumnName="Semster" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <AssociationSetMapping Name="AspNetUserRoles" TypeName="CollegeDatabaseModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
             <EndProperty Name="AspNetRoles">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
             <EndProperty Name="AspNetUsers">
               <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="Link_Course_Instructor" TypeName="CollegeDatabaseModel.Link_Course_Instructor" StoreEntitySet="Link_Course_Instructor">
-            <EndProperty Name="Course">
-              <ScalarProperty Name="id" ColumnName="course_id" />
-            </EndProperty>
-            <EndProperty Name="Instructor">
-              <ScalarProperty Name="id" ColumnName="instructor_id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="Link_Course_Room" TypeName="CollegeDatabaseModel.Link_Course_Room" StoreEntitySet="Link_Course_Room">
-            <EndProperty Name="Course">
-              <ScalarProperty Name="id" ColumnName="course_id" />
-            </EndProperty>
-            <EndProperty Name="Room">
-              <ScalarProperty Name="id" ColumnName="room_id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="Link_Section_Instructor" TypeName="CollegeDatabaseModel.Link_Section_Instructor" StoreEntitySet="Link_Section_Instructor">
-            <EndProperty Name="Instructor">
-              <ScalarProperty Name="id" ColumnName="instructor_id" />
-            </EndProperty>
-            <EndProperty Name="Section">
-              <ScalarProperty Name="id" ColumnName="section_id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="Link_Section_Room" TypeName="CollegeDatabaseModel.Link_Section_Room" StoreEntitySet="Link_Section_Room">
-            <EndProperty Name="Room">
-              <ScalarProperty Name="id" ColumnName="room_id" />
-            </EndProperty>
-            <EndProperty Name="Section">
-              <ScalarProperty Name="id" ColumnName="section_id" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

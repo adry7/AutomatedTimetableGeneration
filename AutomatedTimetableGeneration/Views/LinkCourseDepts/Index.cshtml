@@ -1,0 +1,41 @@
+﻿@model IEnumerable<AutomatedTimetableGeneration.Models.LinkCourseDept>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMetronic.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr class="success">
+        <th>
+            @Html.DisplayName("course name")
+        </th>
+        <th>
+            @Html.DisplayName("Department Name")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr >
+        <td>
+            @Html.DisplayFor(modelItem => item.Course.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department.Name)
+        </td>
+        <td>
+           
+            <span class="btn default btn-xs grey"> @Html.ActionLink("Edit", "Edit", new { id = item.ID }) </span>|
+            <span class="btn default btn-xs grey"> @Html.ActionLink("Details", "Details", new { id = item.ID }) </span>|
+            <span class="btn default btn-xs yellow-lemon"> @Html.ActionLink("Delete", "Delete", new { id = item.ID })</span>
+        </td>
+    </tr>
+}
+
+</table>

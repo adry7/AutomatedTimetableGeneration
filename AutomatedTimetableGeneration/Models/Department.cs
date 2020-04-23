@@ -17,17 +17,24 @@ namespace AutomatedTimetableGeneration.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Department()
         {
-            this.Courses = new HashSet<Course>();
-            this.Instructors = new HashSet<Instructor>();
+            this.AspNetUsers = new HashSet<AspNetUser>();
+            this.Groups = new HashSet<Group>();
+            this.LinkCourseDepts = new HashSet<LinkCourseDept>();
         }
     
-        public int id { get; set; }
-        public string name { get; set; }
-        public Nullable<int> capacity { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public int Capacity { get; set; }
+        public int AcademicYear_id { get; set; }
+        public int WorkHoursPerDay { get; set; }
+        public int AllowedGapHours { get; set; }
     
+        public virtual AcademicYear AcademicYear { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Course> Courses { get; set; }
+        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Instructor> Instructors { get; set; }
+        public virtual ICollection<Group> Groups { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LinkCourseDept> LinkCourseDepts { get; set; }
     }
 }

@@ -1,0 +1,228 @@
+﻿@model AutomatedTimetableGeneration.Models.Room
+@{
+    ViewBag.Title = "Index";
+}
+<style type="text/css">
+    .Normal {
+        background-color: #ffffff
+    }
+
+    .Available {
+        background-color: #19b507;
+        border-left: none;
+    }
+
+    .Unavailable {
+        background-color: #bd2a0b
+    }
+
+    .SAT {
+    }
+</style>
+<div class="col-md-12">
+    <!-- BEGIN BORDERED TABLE PORTLET-->
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">
+                Lectures Table
+            </div>
+
+        </div>
+        <div class="portlet-body">
+            <div class="table-scrollable">
+                <table class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th>
+                                days
+                            </th>
+                            <th>
+                                Halls
+                            </th>
+                            <th>
+                                8 AM
+                            </th>
+                            <th>
+                                9 AM
+                            </th>
+                            <th>
+                                10 AM
+                            </th>
+                            <th>
+                                11 AM
+                            </th>
+                            <th>
+                                12 PM
+                            </th>
+                            <th>
+                                1 PM
+                            </th>
+                            <th>
+                                2 PM
+                            </th>
+                            <th>
+                                3 PM
+                            </th>
+                            <th>
+                                4 PM
+                            </th>
+                            <th>
+                                5 PM
+                            </th>
+                            <th>
+                                6 PM
+                            </th>
+                            <th>
+                                7 PM
+                            </th>
+                            <th>
+                                8 PM
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <!-- Saturday-->
+                        @{ string[] arr = new string[6] { "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday" };
+                        }
+                        @for (var j = 0; j < 6; j++)
+                        {
+                            <tr>
+                                @{string v = (@ViewBag.room_id.Length + 1).ToString();}
+                                <td rowspan=@v>
+                                    @{string s = arr[j].ToString();
+                                    }
+                                    <p>@s</p>
+
+                                </td>
+                                @for (var x = 0; x < @ViewBag.room_id.Length; x++)
+                                {
+                                <tr>
+
+                                    <td> @ViewBag.room_name[x].ToString()</td>
+
+
+                                    @for (var i = 0; i <= 12; i++)
+                                    {
+                                        string ID = ((j + 1).ToString() + @ViewBag.room_id[x].ToString() + (i + 8).ToString());
+
+                                        <td id=@ID> </td>
+                                    }
+
+                                </tr>
+                                }
+                                </tr>
+                                        }
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <button class="btn green col-md-10" id="" onclick="btn()" type="submit">Generate</button>
+
+    <!-- END BORDERED TABLE PORTLET-->
+</div>
+<script>
+
+function btn() {
+
+    // lecture
+    var days = [];
+    var viewBag_day = @Html.Raw(Json.Encode(@ViewBag.day));
+    //for (var x = 0; x < viewBag_day.length; x++) {
+    //    days[x] = viewBag_day[x];
+        //alert(viewBag_day.length);
+
+
+    var viewbag_room_id_lecture = @Html.Raw(Json.Encode(@ViewBag.room_id_lecture));
+
+    var viewbag_start_hour = @Html.Raw(Json.Encode(@ViewBag.startHour));
+    var viewbag_course_id_lecture =@Html.Raw(Json.Encode(@ViewBag.course_id_lecture));
+    var viewbag_group_id_lecture = @Html.Raw(Json.Encode(@ViewBag.group_id_lecture));
+    //room
+
+    var viewbag_room_id =   @Html.Raw(Json.Encode(@ViewBag.room_id));
+    var viewbag_room_name = @Html.Raw(Json.Encode(@ViewBag.room_name));
+    //course
+    var viewbag_course_id =   @Html.Raw(Json.Encode(@ViewBag.course_id));
+    var viewbag_course_name = @Html.Raw(Json.Encode(@ViewBag.course_name));
+    var viewbag_course_hour = @Html.Raw(Json.Encode(@ViewBag.course_hour));
+    // group
+    var viewbag_group_id =   @Html.Raw(Json.Encode(@ViewBag.group_id));
+    var viewbag_group_name = @Html.Raw(Json.Encode(@ViewBag.group_name));
+
+
+    var viewbag_docname1 = @Html.Raw(Json.Encode(@ViewBag.Doc1name));
+    var viewbag_docname2 = @Html.Raw(Json.Encode(@ViewBag.Doc2name));
+
+
+
+    var day, start_hour, room, room_ID, course_hour, course_name, group, cell;
+
+    var lol;
+            for (var i = 0; i < viewBag_day.length; i++) {
+
+                day = String(viewBag_day[i]);
+                start_hour = viewbag_start_hour[i];
+                for (var j = 0; j < viewbag_room_id.length; j++) {
+                    if (viewbag_room_id_lecture[i] == viewbag_room_id[j]) {
+                        room = viewbag_room_name[j];
+                        room_ID = viewbag_room_id[j];
+                        break;
+                    }
+                }
+                for (var j = 0; j < viewbag_course_id.length; j++) {
+
+
+                    if (viewbag_course_id_lecture[i] == viewbag_course_id[j]) {
+                        course_name = viewbag_course_name[j];
+                        course_hour = viewbag_course_hour[j];
+                        break;
+                    }
+                }
+                for (var j = 0; j < viewbag_group_id.length; j++) {
+
+
+                    if (viewbag_group_id_lecture[i] == viewbag_group_id[j]) {
+                        group = viewbag_group_name[j];
+                        break;
+                    }
+
+
+
+                }
+                cell = day.concat(room_ID, start_hour);
+                var informationforslot = course_name + " " + viewbag_docname1[i] + " " + viewbag_docname2[i] + " " + group;
+                var groupname = " , " + group;
+                if (document.getElementById(day.concat(room_ID, ((parseInt(start_hour))))).innerText == "")
+                    document.getElementById(day.concat(room_ID, ((parseInt(start_hour))))).innerText = (informationforslot.toString());
+                else
+                {
+                    var informationforslot2 = document.getElementById(day.concat(room_ID, ((parseInt(start_hour))))).innerText + groupname;
+                    document.getElementById(day.concat(room_ID, ((parseInt(start_hour))))).innerText = (informationforslot2.toString());
+                }
+
+                for (var x = 0; x < parseInt(course_hour); x++)
+                {
+                    //alert(parseInt(start_hour));
+                    //alert(day.concat(room_ID, ((parseInt(start_hour)) + x)));
+
+                    lol = document.getElementById(day.concat(room_ID, ((parseInt(start_hour))+x)));
+                    lol.classList.add('Available');
+                   // document.getElementById(day.concat(room_ID, ((parseInt(start_hour))))).innerText(course_name.toString());
+            }
+
+            //lol = document.getElementById(cell);
+            //lol.classList.add('Available');
+    }
+}
+
+
+
+</script>
+
+
+
+

@@ -17,20 +17,17 @@ namespace AutomatedTimetableGeneration.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Section()
         {
-            this.Instructors = new HashSet<Instructor>();
-            this.Rooms = new HashSet<Room>();
+            this.SectionTimes = new HashSet<SectionTime>();
         }
     
-        public int id { get; set; }
-        public int course_id { get; set; }
-        public System.TimeSpan hours { get; set; }
-        public System.TimeSpan start_time { get; set; }
-        public int capacity { get; set; }
+        public int ID { get; set; }
+        public int Year_id { get; set; }
+        public string Name { get; set; }
+        public int Count { get; set; }
+        public Nullable<int> Grp_id { get; set; }
     
-        public virtual Course Course { get; set; }
+        public virtual Group Group { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Instructor> Instructors { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Room> Rooms { get; set; }
+        public virtual ICollection<SectionTime> SectionTimes { get; set; }
     }
 }

@@ -1,0 +1,105 @@
+﻿@using Microsoft.AspNet.Identity
+@using AutomatedTimetableGeneration.Models
+@model List<AutomatedTimetableGeneration.Models.Ta_Wishes>
+
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutMetronic.cshtml";
+}
+
+
+@using (Html.BeginForm("Create", "TA", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+    
+        <hr />
+
+        @if (Model != null && Model.Count > 0)
+        {
+            int j = 0;
+            int x = 1;
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model[0].Course_Id, "wish 1", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("Course_Id", null, htmlAttributes: new { @class = "form-control", @id = "course1" })
+
+
+                </div>
+            </div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model[0].Course_Id, "wish 2", htmlAttributes: new { @class = "control-label col-md-2 " })
+                <div class="col-md-10">
+                    @Html.DropDownList("Course_Id", null, htmlAttributes: new { @class = "form-control" , @id = "course2" })
+
+
+                </div>
+            </div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model[0].Course_Id, "wish 3", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("Course_Id", null, htmlAttributes: new { @class = "form-control", @id = "course3" })
+
+
+                </div>
+            </div>
+            foreach (var i in Model)
+            {
+
+
+                @Html.HiddenFor(a => a[j].Priority, htmlAttributes: new { @id = "priority[" + j + "]" })
+                @Html.HiddenFor(a => a[j].Course_Id, htmlAttributes: new { @id = "Course_Id[" + j + "]" })
+                @Html.HiddenFor(a => a[j].Year_id, htmlAttributes: new { @id = "year[" + j + "]" })
+                j++; x++;
+            }
+        }
+        <div class="form-group">
+            @Html.LabelFor(model => model[0].Year_id, "Year", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Year_id", null, htmlAttributes: new { @class = "form-control", @id = "year1" })
+                @Html.ValidationMessageFor(model => model[0].Year_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Done" class="btn btn-circle green"   onclick="Priority()" />
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+      function Priority() {
+    var year1 = document.getElementById("year1");
+
+    for (var i = 0; i < 3; i++) {
+        var p = document.getElementById("priority[" + i + "]");
+        var course = document.getElementById("cid" + i + "");
+
+        var year = document.getElementById("year[" + i + "]");
+        year.value = year1.value;
+
+        p.value = i + 1;
+    }
+    var course_id1 = document.getElementById("course1")
+    var course_id2 = document.getElementById("course2")
+    var course_id3 = document.getElementById("course3")
+    var course1 = document.getElementById("Course_Id[0]"); //hidden
+    var course2 = document.getElementById("Course_Id[1]");
+    var course3 = document.getElementById("Course_Id[2]");
+
+    course1.value = course_id1.value;
+    course2.value = course_id3.value;
+    course3.value = course_id3.value;
+
+}
+</script>
+
+<div>
+    <span class="btn btn-circle-left grey ">@Html.ActionLink("Back to List", "Index")</span>
+</div>

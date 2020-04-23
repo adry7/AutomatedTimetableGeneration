@@ -1,0 +1,284 @@
+﻿@model AutomatedTimetableGeneration.Models.Room
+@{
+    ViewBag.Title = "Index";
+}
+<style type="text/css">
+    .Normal {
+        background-color: #ffffff
+    }
+
+    .Available {
+        background-color: #19b507;
+        border-left: none;
+    }
+
+    .Unavailable {
+        background-color: #bd2a0b
+    }
+
+    .SAT {
+    }
+    table {
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 5px;
+        text-align: center;
+    }
+
+    .hidden {
+        display: none;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<div class="col-md-12">
+    <!-- BEGIN BORDERED TABLE PORTLET-->
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">
+                Lectures Table
+            </div>
+
+        </div>
+        <div class="portlet-body">
+            <div class="table-scrollable">
+                <table class="table table-bordered " id="tbl">
+                    <thead>
+                        <tr>
+                            <th>
+                                days
+                            </th>
+                            <th>
+                                Halls
+                            </th>
+                            <th>
+                                8 AM
+                            </th>
+                            <th>
+                                9 AM
+                            </th>
+                            <th>
+                                10 AM
+                            </th>
+                            <th>
+                                11 AM
+                            </th>
+                            <th>
+                                12 PM
+                            </th>
+                            <th>
+                                1 PM
+                            </th>
+                            <th>
+                                2 PM
+                            </th>
+                            <th>
+                                3 PM
+                            </th>
+                            <th>
+                                4 PM
+                            </th>
+                            <th>
+                                5 PM
+                            </th>
+                            <th>
+                                6 PM
+                            </th>
+                            <th>
+                                7 PM
+                            </th>
+                            <th>
+                                8 PM
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <!-- Saturday-->
+                        @{ string[] arr = new string[6] { "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday" };
+                        }
+                        @for (var j = 0; j < 6; j++)
+                        {
+                            
+                            @: <tr>
+                                string v = (@ViewBag.room_id.Length + 1).ToString();
+                            
+                            @:<td rowspan=@v>
+                                    string s;
+
+                            // {  s = (DayOfWeek.Saturday).ToString(); }
+
+                            //  else
+                            //  {  s = ((DayOfWeek)j).ToString(); }
+
+                            s = arr[j];
+                            <p>@s</p>
+                            
+                            @: </td>
+                                for (var x = 0; x < @ViewBag.room_id.Length; x++)
+                            {
+                            <tr>
+
+                                <td> @ViewBag.room_name[x].ToString()</td>
+
+
+                                @for (var i = 0; i <= 12; i++)
+                                {
+                                    string ID = ((j ).ToString() + @ViewBag.room_id[x].ToString() + (i).ToString());
+
+                                    <td id=@ID> </td>
+                                }
+
+                            </tr>
+                            }
+                            @:</tr>
+                                        }
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <button class="btn green col-md-10 button" id="" onclick="btn()" type="submit">Generate</button>
+
+    <!-- END BORDERED TABLE PORTLET-->
+</div>
+<script>
+
+function btn() {
+
+    // lecture
+    var days = [];
+    var viewBag_day = @Html.Raw(Json.Encode(@ViewBag.day));
+    //for (var x = 0; x < viewBag_day.length; x++) {
+    //    days[x] = viewBag_day[x];
+        //alert(viewBag_day.length);
+
+
+    var viewbag_room_id_lecture = @Html.Raw(Json.Encode(@ViewBag.room_id_lecture));
+
+    var viewbag_start_hour = @Html.Raw(Json.Encode(@ViewBag.startHour));
+    var viewbag_course_id_lecture =@Html.Raw(Json.Encode(@ViewBag.course_id_lecture));
+    var viewbag_group_id_lecture = @Html.Raw(Json.Encode(@ViewBag.group_id_lecture));
+    //room
+
+    var viewbag_room_id =   @Html.Raw(Json.Encode(@ViewBag.room_id));
+    var viewbag_room_name = @Html.Raw(Json.Encode(@ViewBag.room_name));
+    //course
+    var viewbag_course_id =   @Html.Raw(Json.Encode(@ViewBag.course_id));
+    var viewbag_course_name = @Html.Raw(Json.Encode(@ViewBag.course_name));
+    var viewbag_course_hour = @Html.Raw(Json.Encode(@ViewBag.course_hour));
+    // group
+    var viewbag_group_id =   @Html.Raw(Json.Encode(@ViewBag.group_id));
+    var viewbag_group_name = @Html.Raw(Json.Encode(@ViewBag.group_name));
+
+
+    var viewbag_docname1 = @Html.Raw(Json.Encode(@ViewBag.Doc1name));
+    var viewbag_docname2 = @Html.Raw(Json.Encode(@ViewBag.Doc2name));
+    var  viewbag_1 = @Html.Raw(Json.Encode(@ViewBag.laborsection));
+        var  viewbag_2 = @Html.Raw(Json.Encode(@ViewBag.sectionNum));
+        var hour =  @Html.Raw(Json.Encode(@ViewBag.Hours));
+        
+    var Ta = @Html.Raw(Json.Encode(@ViewBag.TaName));
+
+    var day, start_hour, room, room_ID, course_hour, course_name, group, cell, Sec, secName,h;
+
+    var lol;
+            for (var i = 0; i < viewBag_day.length; i++) {
+
+                day = String(viewBag_day[i]);
+                start_hour = viewbag_start_hour[i];
+                for (var j = 0; j < viewbag_room_id.length; j++) {
+                    if (viewbag_room_id_lecture[i] == viewbag_room_id[j]) {
+                        room = viewbag_room_name[j];
+                        room_ID = viewbag_room_id[j];
+                        break;
+                    }
+                }
+                for (var j = 0; j < viewbag_course_id.length; j++) {
+
+
+                    if (viewbag_course_id_lecture[i]     == viewbag_course_id[j]) {
+                        course_name = viewbag_course_name[j];
+                        course_hour = viewbag_course_hour[j];
+                        break;
+                    }
+                }
+
+
+                   // if (laborsection[i] == "section") {
+                Sec = viewbag_1[i];
+                secName = viewbag_2[i];
+
+
+
+                //for (var j = 0; j < viewbag_group_id.length; j++) {
+
+
+                //    if (viewbag_group_id_lecture[i] == viewbag_group_id[j]) {
+                //        group = viewbag_group_name[j];
+                //        break;
+                //    }
+
+
+
+                //}
+                cell = day.concat(room_ID, start_hour);
+                var informationforslot = course_name + "/" + Ta[i] + " / " + Sec + " / " + secName;
+
+
+                    document.getElementById(day.concat(room_ID, ((parseInt(start_hour))))).innerText = (informationforslot.toString());
+
+                    for (var x = 0; x < parseInt(hour[i]); x++)
+                {
+                    //alert(parseInt(start_hour));
+                    //alert(day.concat(room_ID, ((parseInt(start_hour)) + x)));
+
+                    lol = document.getElementById(day.concat(room_ID, ((parseInt(start_hour)) + x)));
+                   // if (!lol.classList.contains('Available'))
+                       // alert("available");
+                    lol.classList.add('Available');
+                    //document.getElementById(day.concat(room_ID, ((parseInt(start_hour))+x))).innerText = (informationforslot.toString());
+                   // document.getElementById(day.concat(room_ID, ((parseInt(start_hour))))).innerText(course_name.toString());
+                }
+
+
+            //lol = document.getElementById(cell);
+            //lol.classList.add('Available');
+    }
+         //   ss();
+}
+    function MergeCommonRows(table) {
+        var firstColumnBrakes = [];
+        // iterate through the columns instead of passing each column as function parameter:
+        for (var i = 1; i <= table.find('th').length; i++) {
+            var previous = null, cellToExtend = null, rowspan = 1;
+            table.find("td:nth-child(" + i + ")").each(function (index, e) {
+                var jthis = $(this), content = jthis.text();
+                // check if current row "break" exist in the array. If not, then extend rowspan:
+                if (previous == content && content !== "" && $.inArray(index, firstColumnBrakes) === -1) {
+                    // hide the row instead of remove(), so the DOM index won't "move" inside loop.
+                    jthis.addClass('hidden');
+                    cellToExtend.attr("rowspan", (rowspan = rowspan + 1));
+                } else {
+                    // store row breaks only for the first column:
+                    if (i === 1) firstColumnBrakes.push(index);
+                    rowspan = 1;
+                    previous = content;
+                    cellToExtend = jthis;
+                }
+            });
+        }
+        // now remove hidden td's (or leave them hidden if you wish):
+        $('td.hidden').remove();
+    }
+
+    $('.button').click(function () {
+        MergeCommonRows($('#tbl'));
+    });
+
+</script>
+

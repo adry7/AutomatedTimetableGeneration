@@ -15,6 +15,7 @@ namespace AutomatedTimetableGeneration.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private CollegeDatabaseEntities10 db = new CollegeDatabaseEntities10();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -72,10 +73,11 @@ namespace AutomatedTimetableGeneration.Controllers
             {
                 return View(model);
             }
-
+            ApplicationDbContext db = new ApplicationDbContext();
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var user = db.Users.Where(u => u.Email.Equals(model.Email)).Single();
+            var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -137,8 +139,10 @@ namespace AutomatedTimetableGeneration.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult RegisterforTA()
         {
+            CollegeDatabaseEntities10 db = new CollegeDatabaseEntities10();
+            //var depts = db.Departments.ToList();
             return View();
         }
 
@@ -147,16 +151,60 @@ namespace AutomatedTimetableGeneration.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> RegisterforTA(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser {PhoneNumber=model.PhoneNumber, UserName = model.UserName, Email = model.Email ,isExternal =model.isExternal ,Experience =model.Experience ,Department_id =model.Department_id };
                 var result = await UserManager.CreateAsync(user, model.Password);
+                
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await UserManager.AddToRoleAsync(user.Id, "TA");
+
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    ViewBag.Department_id = new SelectList(db.Departments, "ID", "Name");
+
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+
+        [AllowAnonymous]
+        public ActionResult RegisterforDOC()
+        {
+            CollegeDatabaseEntities10 db = new CollegeDatabaseEntities10();
+            //var depts = db.Departments.ToList();
+            return View();
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterforDOC(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, isExternal = model.isExternal, Experience = model.Experience, Department_id = model.Department_id };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    await UserManager.AddToRoleAsync(user.Id, "Doctor");
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -171,7 +219,6 @@ namespace AutomatedTimetableGeneration.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
@@ -392,7 +439,7 @@ namespace AutomatedTimetableGeneration.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //
